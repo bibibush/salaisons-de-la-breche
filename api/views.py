@@ -10,6 +10,7 @@ from django.contrib.auth import get_user_model, get_user
 from django.core.files.storage import FileSystemStorage
 from api.models import Order, File
 from users.models import Users
+from users.views import MyLoginRequiredMixin
 from django.http import HttpResponse, JsonResponse, FileResponse
 from api.views_utils import obj_to_order
 from django.views import View
@@ -98,7 +99,7 @@ class ApipwdChangeView(PasswordChangeView):
     def form_invalid(self, form):
         return JsonResponse (data=form.errors, safe=True, status= 400)
 
-class ApiFileDownloadView(View):        
+class ApiFileDownloadView(MyLoginRequiredMixin,View):        
     
     def get(self, request, *args, **kwargs):
         object = File.objects.get(title = 'first')
