@@ -23,7 +23,6 @@ class ApiPostV(BaseCreateView):
     fields = (
         "name",
         "adresse",
-        "order_list",
     )
  
     def form_valid(self, form):
@@ -109,3 +108,15 @@ class ApiFileDownloadView(MyLoginRequiredMixin,View):
         response = FileResponse(fs.open(file_path, 'rb'), content_type= file_type)
         response['Content-Disposition'] = f'attachment; filename=' + os.path.basename(file_path)
         return response
+
+class ApiFileUploadView(BaseCreateView):
+    model = Order
+    fields = '__all__'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.save()
+        return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        return JsonResponse(data= form.errors, safe=True, status= 400)
