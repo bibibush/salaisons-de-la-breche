@@ -6,9 +6,11 @@ from users.models import Users
 class Order(models.Model):
     name = models.CharField(max_length=50, null=True)
     adresse = models.CharField(max_length=50, null=True)
+    phonenumber = models.CharField(max_length=50, null=True)
+    entreprise = models.CharField(max_length=100, null=True)
     user = models.ForeignKey(Users,on_delete=models.CASCADE, null=True)
-    order_list = models.JSONField( null=True)
-
+    order_file = models.FileField(null=True)
+    
     def __str__(self):
         return self.name
 
