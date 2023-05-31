@@ -1,7 +1,7 @@
 from typing import Any
 from django.shortcuts import render
 from django.views.generic.edit import BaseCreateView
-from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.detail import SingleObjectMixin, BaseDetailView
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
@@ -109,7 +109,7 @@ class ApiFileDownloadView(MyLoginRequiredMixin,View):
         response['Content-Disposition'] = f'attachment; filename=' + os.path.basename(file_path)
         return response
 
-class ApiFileUploadView(BaseCreateView):
+class ApiFileUploadView(MyLoginRequiredMixin,BaseCreateView):
     model = Order
     fields = '__all__'
 
@@ -121,3 +121,11 @@ class ApiFileUploadView(BaseCreateView):
     
     def form_invalid(self, form):
         return JsonResponse(data= form.errors, safe=True, status= 400)
+
+class ApiCommandeInfoView(BaseDetailView):
+    model= Order
+    
+    def render_to_response(self, context, **response_kwargs):
+        self.object = context['object']
+        post = obj_to_order(self.object)
+        return JsonResponse(data=post, safe=True, status=200)
