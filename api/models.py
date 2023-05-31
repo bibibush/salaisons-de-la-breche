@@ -8,7 +8,8 @@ class Order(models.Model):
     adresse = models.CharField(max_length=50, null=True)
     phonenumber = models.CharField(max_length=50, null=True)
     entreprise = models.CharField(max_length=100, null=True)
-    user = models.ForeignKey(Users,on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(Users,on_delete=models.CASCADE, null=True, blank=True)
+    email = models.CharField(max_length=50, null=True)
     order_file = models.FileField(null=True)
     
     def __str__(self):

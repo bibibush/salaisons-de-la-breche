@@ -115,8 +115,9 @@ class ApiFileUploadView(BaseCreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.save()
-        return super().form_valid(form)
+        self.object = form.save()
+        post = obj_to_order(self.object)
+        return JsonResponse(data=post, safe=True, status=201)
     
     def form_invalid(self, form):
         return JsonResponse(data= form.errors, safe=True, status= 400)
