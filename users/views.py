@@ -9,3 +9,12 @@ class MyLoginRequiredMixin(LoginRequiredMixin):
             data = {'message' : "vous n'avez pas droit à télécharger, Connectez-vous s'il vous plait"}
             return JsonResponse(data=data, safe=True, status=401)
         return super().dispatch(request, *args, **kwargs)
+
+class OwnerOnlyMixin(AccessMixin):
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if request.user != self.object.user:
+            data = {'message': "Vous n'avez pas droit"}
+            return JsonResponse(data=data, safe=True, status=403)
+        return super().dispatch(request, *args, **kwargs)
+        

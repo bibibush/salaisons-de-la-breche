@@ -10,7 +10,7 @@ from django.contrib.auth import get_user_model, get_user
 from django.core.files.storage import FileSystemStorage
 from api.models import Order, File
 from users.models import Users
-from users.views import MyLoginRequiredMixin
+from users.views import MyLoginRequiredMixin, OwnerOnlyMixin
 from django.http import HttpResponse, JsonResponse, FileResponse
 from api.views_utils import obj_to_order
 from django.views import View
@@ -122,7 +122,7 @@ class ApiFileUploadView(MyLoginRequiredMixin,BaseCreateView):
     def form_invalid(self, form):
         return JsonResponse(data= form.errors, safe=True, status= 400)
 
-class ApiCommandeInfoView(BaseDetailView):
+class ApiCommandeInfoView(OwnerOnlyMixin,BaseDetailView):
     model= Order
     
     def render_to_response(self, context, **response_kwargs):
