@@ -18,20 +18,6 @@ from api.form import LoginForm, RegisterForm
 import os
 
 # Create your views here.
-class ApiPostV(BaseCreateView):
-    model = Order
-    fields = (
-        "name",
-        "adresse",
-    )
- 
-    def form_valid(self, form):
-        self.object = form.save()
-        post = obj_to_order(self.object)
-        return JsonResponse(data=post, safe=True, status=201)
-
-    def form_invalid(self, form):
-        return JsonResponse(data=form.errors, safe=True, status=400)
 
 class ApiLoginView(View):
 
@@ -45,7 +31,7 @@ class ApiLoginView(View):
             login(self.request, user)
             userDict = {
                 'id': user.id,
-                'username': user.username,
+                'username': user.nom,
                 'email': user.email
             }
             return JsonResponse(data=userDict, safe=True, status=200)
@@ -62,9 +48,10 @@ class RegisterView(BaseCreateView):
     form_class = RegisterForm
 
     def form_valid(self, form):
+        form.instance.username = form.instance.nom
         self.object = form.save()
         userDict = {
-            'username': self.object.username,
+            'username': self.object.nom,
             'email': self.object.email,
         }
         

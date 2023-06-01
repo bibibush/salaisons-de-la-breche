@@ -4,7 +4,8 @@ from users.models import Users
 
 
 class Order(models.Model):
-    name = models.CharField(max_length=50, null=True)
+    nom = models.CharField(max_length=50, null=True)
+    prenom = models.CharField(max_length=50, null=True)
     adresse = models.CharField(max_length=50, null=True)
     phonenumber = models.CharField(max_length=50, null=True)
     entreprise = models.CharField(max_length=100, null=True)
@@ -13,7 +14,7 @@ class Order(models.Model):
     order_file = models.FileField(upload_to='upload/',null=True)
     
     def __str__(self):
-        return self.name
+        return self.nom
 
 class File(models.Model):
     title = models.CharField(max_length=30, null=True)

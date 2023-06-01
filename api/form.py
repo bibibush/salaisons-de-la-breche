@@ -10,13 +10,16 @@ class LoginForm(forms.Form):
 class RegisterForm(UserCreationForm):
     email = forms.CharField(max_length=100, widget=forms.EmailInput)
     phonenumber = forms.CharField(max_length=20,widget=forms.TextInput)
-    username = forms.CharField(max_length=50, widget=forms.TextInput)
+    nom = forms.CharField(max_length=50, widget=forms.TextInput)
+    prenom = forms.CharField(max_length=50, widget=forms.TextInput)
     adresse = forms.CharField(max_length=50, widget=forms.TextInput)
 
     class Meta:
         model = Users
         fields = (
             "username",
+            "nom",
+            "prenom",
             "email",
             "adresse",
             "phonenumber",

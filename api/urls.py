@@ -4,7 +4,6 @@ from api import views
 
 app_name = 'api'
 urlpatterns = [
-   path('order/',views.ApiPostV.as_view(), name='order'),
    path('login/', views.ApiLoginView.as_view(), name='login'),
    path('getme/', views.GetMe.as_view(), name='getme'),
    path('logout/', views.ApiLogoutView.as_view(), name='logout'),
