@@ -31,7 +31,7 @@ class ApiLoginView(View):
             login(self.request, user)
             userDict = {
                 'id': user.id,
-                'username': user.nom,
+                'username': user.username,
                 'email': user.email
             }
             return JsonResponse(data=userDict, safe=True, status=200)
@@ -116,3 +116,14 @@ class ApiCommandeInfoView(OwnerOnlyMixin,BaseDetailView):
         self.object = context['object']
         post = obj_to_order(self.object)
         return JsonResponse(data=post, safe=True, status=200)
+
+class ApiCommandExcelView(OwnerOnlyMixin,BaseDetailView):
+    model= Order
+    def get(self, request, pk, *args, **kwargs):
+        object = Order.objects.get(pk=pk)
+        file_path = object.order_file.path
+        file_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        fs = FileSystemStorage(file_path)
+        response = FileResponse(fs.open(file_path, 'rb'), content_type= file_type)
+        response['Content-Disposition'] = f'attachment; filename=' + os.path.basename(file_path)
+        return response

@@ -11,5 +11,6 @@ urlpatterns = [
    path('pwdchange/', views.ApipwdChangeView.as_view(), name='pwdchange'),
    path('download/', views.ApiFileDownloadView.as_view(), name='download'),
    path('upload/', views.ApiFileUploadView.as_view(), name='upload'),
-   path('success/<int:pk>/', views.ApiCommandeInfoView.as_view(), name='success')
+   path('success/<int:pk>/', views.ApiCommandeInfoView.as_view(), name='success'),
+   path('excel/<int:pk>/', views.ApiCommandExcelView.as_view(), name='excel')
 ]
