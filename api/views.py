@@ -27,14 +27,14 @@ class ApiLoginView(View):
             email = form.cleaned_data.get("email")
             password = form.cleaned_data.get("password")
             user = Users.objects.get(email=email)
-            user.check_password(password)
-            login(self.request, user)
-            userDict = {
-                'id': user.id,
-                'username': user.username,
-                'email': user.email
-            }
-            return JsonResponse(data=userDict, safe=True, status=200)
+            if user.check_password(password):
+                login(self.request, user)
+                userDict = {
+                    'id': user.id,
+                    'username': user.username,
+                    'email': user.email
+                }
+                return JsonResponse(data=userDict, safe=True, status=200)
         else:
             JsonResponse(data=form.errors, safe=True, status=400)
     
