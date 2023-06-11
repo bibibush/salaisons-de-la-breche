@@ -15,6 +15,8 @@ from django.http import HttpResponse, JsonResponse, FileResponse
 from api.views_utils import obj_to_order
 from django.views import View
 from api.form import LoginForm, RegisterForm
+import urllib
+import mimetypes
 import os
 
 # Create your views here.
@@ -67,7 +69,12 @@ class GetMe(View):
             userDict = {
                 'id': user.id,
                 'username': user.username,
+                'nom' : user.nom,
+                'prenom' : user.prenom,
                 'email': user.email,
+                'entreprise' : user.entreprise,
+                'phonenumber' : user.phonenumber,
+                'adresse' : user.adresse
             }
         else:
             userDict= {
@@ -121,9 +128,10 @@ class ApiCommandExcelView(OwnerOnlyMixin,BaseDetailView):
     model= Order
     def get(self, request, pk, *args, **kwargs):
         object = Order.objects.get(pk=pk)
-        file_path = object.order_file.path
-        file_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        file_path = object.order_file.path 
+        file_name = urllib.parse.quote(object.order_file.name.encode('utf-8'))
+        # file_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         fs = FileSystemStorage(file_path)
-        response = FileResponse(fs.open(file_path, 'rb'), content_type= file_type)
-        response['Content-Disposition'] = f'attachment; filename=' + os.path.basename(file_path)
+        response = FileResponse(fs.open(file_path, 'rb'), content_type= mimetypes.guess_type(file_path)[0])
+        response['Content-Disposition'] = f'attachment; filename*=UTF-8\'\'%s' % file_name
         return response
