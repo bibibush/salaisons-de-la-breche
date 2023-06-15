@@ -5,6 +5,11 @@ def obj_to_order(obj):
         post['order_file'] = obj.order_file.name
     else:
         post['order_file'] = ''
+    
+    if obj.date:
+        post['date'] = obj.date.strftime('%d/%m/%Y')
+    else:
+        post['date'] = ''
 
     del post['_state']
 

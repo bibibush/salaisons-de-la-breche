@@ -12,6 +12,7 @@ class Order(models.Model):
     user = models.ForeignKey(Users,on_delete=models.CASCADE, null=True, blank=True)
     email = models.CharField(max_length=50, null=True)
     order_file = models.FileField(upload_to='upload/',null=True)
+    date = models.DateField(null=True)
     
     def __str__(self):
         return self.nom
