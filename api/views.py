@@ -140,9 +140,11 @@ class ApiCommandExcelView(OwnerOnlyMixin,BaseDetailView):
         response['Content-Disposition'] = f'attachment; filename*=UTF-8\'\'%s' % file_name
         return response
 
-class ApiCommandeListView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseListView):
-    model= Order
+class ApiCommandeListView(MyLoginRequiredMixin, BaseListView):
+    def get_queryset(self):
+        qs = Order.objects.filter(user__username = self.request.user)
+        return qs
     def render_to_response(self, context, **response_kwargs):
-        self.object = context['object_list']
-        postList = [obj_to_order(obj) for obj in self.object]
-        return JsonResponse(data=postList, safe=False, satus=200)
+        qs = context['object_list']
+        postList = [obj_to_order(obj) for obj in qs]
+        return JsonResponse(data=postList, safe=False, status=200)
