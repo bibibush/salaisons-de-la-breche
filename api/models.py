@@ -9,9 +9,12 @@ class Order(models.Model):
     adresse = models.CharField(max_length=50, null=True)
     phonenumber = models.CharField(max_length=50, null=True)
     entreprise = models.CharField(max_length=100, null=True)
-    user = models.ForeignKey(Users,on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(Users,on_delete=models.CASCADE, blank=True, null=True)
     email = models.CharField(max_length=50, null=True)
-    order_file = models.FileField(upload_to='upload/',null=True)
+    create_dt = models.DateField(auto_now_add=True, null=True)
+    modify_dt = models.DateField(auto_now=True)
+    order_file = models.FileField(upload_to='upload/', null=True)
+    order_number = models.CharField(max_length=10, blank=True, null=True)
     date = models.DateField(null=True)
     
     def __str__(self):

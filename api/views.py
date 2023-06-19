@@ -2,6 +2,7 @@ from typing import Any
 from django.shortcuts import render
 from django.views.generic.edit import BaseCreateView
 from django.views.generic.detail import SingleObjectMixin, BaseDetailView
+from django.views.generic.list import BaseListView
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
 from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
@@ -13,11 +14,13 @@ from users.models import Users
 from users.views import MyLoginRequiredMixin, OwnerOnlyMixin
 from django.http import HttpResponse, JsonResponse, FileResponse
 from api.views_utils import obj_to_order
+from api.views_utils import random_letters
 from django.views import View
 from api.form import LoginForm, RegisterForm
 import urllib
 import mimetypes
 import os
+
 
 # Create your views here.
 
@@ -109,6 +112,7 @@ class ApiFileUploadView(MyLoginRequiredMixin,BaseCreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        form.instance.order_number = random_letters(10)
         self.object = form.save()
         post = obj_to_order(self.object)
         return JsonResponse(data=post, safe=True, status=201)
@@ -135,3 +139,10 @@ class ApiCommandExcelView(OwnerOnlyMixin,BaseDetailView):
         response = FileResponse(fs.open(file_path, 'rb'), content_type= mimetypes.guess_type(file_path)[0])
         response['Content-Disposition'] = f'attachment; filename*=UTF-8\'\'%s' % file_name
         return response
+
+class ApiCommandeListView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseListView):
+    model= Order
+    def render_to_response(self, context, **response_kwargs):
+        self.object = context['object_list']
+        postList = [obj_to_order(obj) for obj in self.object]
+        return JsonResponse(data=postList, safe=False, satus=200)
