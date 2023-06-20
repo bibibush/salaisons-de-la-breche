@@ -25,4 +25,4 @@ class File(models.Model):
     file = models.FileField(null=True)
 
     def __str__(self):
-        return self.file.name
+        return self.title
