@@ -142,7 +142,7 @@ class ApiCommandExcelView(OwnerOnlyMixin,BaseDetailView):
 
 class ApiCommandeListView(MyLoginRequiredMixin, BaseListView):
     def get_queryset(self):
-        qs = Order.objects.filter(user__username = self.request.user)
+        qs = Order.objects.filter(user__email = self.request.user.email)
         return qs
     def render_to_response(self, context, **response_kwargs):
         qs = context['object_list']
