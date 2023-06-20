@@ -3,7 +3,7 @@
 - api
 - users
 ## 인증은 E-mail로
-```
+```js
  email = models.EmailField(_('email adress'), unique=True)
 
  USERNAME_FIELD = 'email'
