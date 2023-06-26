@@ -1,6 +1,6 @@
 from typing import Any
 from django.shortcuts import render
-from django.views.generic.edit import BaseCreateView
+from django.views.generic.edit import BaseCreateView, BaseUpdateView
 from django.views.generic.detail import SingleObjectMixin, BaseDetailView
 from django.views.generic.list import BaseListView
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
@@ -148,3 +148,49 @@ class ApiCommandeListView(MyLoginRequiredMixin, BaseListView):
         qs = context['object_list']
         postList = [obj_to_order(obj) for obj in qs]
         return JsonResponse(data=postList, safe=False, status=200)
+
+class ApiInfoUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
+    model=Order
+    fields= (
+        'nom',
+        'prenom',
+        'adresse',
+        'phonenumber',
+        'entreprise',
+        'email',
+        )
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        post = obj_to_order(self.object)
+        return JsonResponse(data=post, safe=True, status=200)
+    def form_invalid(self, form):
+        return JsonResponse(data=form.errors, safe=True, status=400)
+
+class ApiExcelUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
+    model=Order
+    fields= (
+        'order_file',
+    )
+
+    def form_valid(self, form):
+        self.object = form.save()
+        post = obj_to_order(self.object)
+        return JsonResponse(data=post, safe=True, status=200)
+    
+    def form_invalid(self, form):
+        return JsonResponse(data=form.errors, safe=True, status=400)
+
+class ApiDateUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
+    model = Order
+    fields = (
+        'date',
+    )
+
+    def form_valid(self, form):
+        self.object = form.save()
+        post = obj_to_order(self.object)
+        return JsonResponse(data=post, safe=True, status=200)
+    
+    def form_invalid(self, form):
+        return JsonResponse(data=form.errors, safe=True, status=400)
