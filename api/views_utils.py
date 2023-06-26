@@ -19,6 +19,11 @@ def obj_to_order(obj):
     else:
         post['modify_dt'] = ''
 
+    if obj.create_dt:
+        post['create_dt'] = obj.create_dt.strftime('%d/%m/%Y')
+    else:
+        post['create_dt'] = ''
+
     del post['_state']
 
     return post
