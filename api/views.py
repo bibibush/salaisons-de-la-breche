@@ -20,6 +20,7 @@ from api.form import LoginForm, RegisterForm
 import urllib
 import mimetypes
 import os
+from datetime import date, timedelta
 
 
 # Create your views here.
@@ -114,7 +115,10 @@ class ApiFileUploadView(MyLoginRequiredMixin,BaseCreateView):
         form.instance.user = self.request.user
         form.instance.order_number = random_letters(10)
         self.object = form.save()
-        post = obj_to_order(self.object)
+        if date.today() >= self.object.date - timedelta(days=14):
+            form.instance.block = True
+        bon = form.save()
+        post = obj_to_order(bon)
         return JsonResponse(data=post, safe=True, status=201)
     
     def form_invalid(self, form):
@@ -124,7 +128,9 @@ class ApiCommandeInfoView(OwnerOnlyMixin,BaseDetailView):
     model= Order
     
     def render_to_response(self, context, **response_kwargs):
-        self.object = context['object']
+        self.object = context['object'] 
+        if date.today() >= self.object.date - timedelta(days=14):
+            self.object.block = True
         post = obj_to_order(self.object)
         return JsonResponse(data=post, safe=True, status=200)
 

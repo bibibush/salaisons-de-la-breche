@@ -16,6 +16,8 @@ class Order(models.Model):
     order_file = models.FileField(upload_to='upload/', null=True)
     order_number = models.CharField(max_length=10, blank=True, null=True)
     date = models.DateField(null=True)
+    pay = models.BooleanField(default=False)
+    block = models.BooleanField(default=False)
     
     def __str__(self):
         return self.nom
