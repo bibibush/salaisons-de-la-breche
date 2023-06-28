@@ -134,6 +134,14 @@ class ApiCommandeInfoView(OwnerOnlyMixin,BaseDetailView):
         post = obj_to_order(self.object)
         return JsonResponse(data=post, safe=True, status=200)
 
+class ApiCommandeManageView(OwnerOnlyMixin, BaseDetailView):
+    model= Order
+
+    def render_to_response(self, context, **response_kwargs):
+        self.object = context['object']
+        post = obj_to_order(self.object)
+        return JsonResponse (data=post, safe=True, status=200)
+
 class ApiCommandExcelView(OwnerOnlyMixin,BaseDetailView):
     model= Order
     def get(self, request, pk, *args, **kwargs):
@@ -148,7 +156,10 @@ class ApiCommandExcelView(OwnerOnlyMixin,BaseDetailView):
 
 class ApiCommandeListView(MyLoginRequiredMixin, BaseListView):
     def get_queryset(self):
-        qs = Order.objects.filter(user__email = self.request.user.email).order_by('-create_dt')
+        if self.request.user.email == 'contact@salaisonsdelabreche.com':
+            qs = Order.objects.all().order_by('-create_dt')
+        else:
+            qs = Order.objects.filter(user__email = self.request.user.email).order_by('-create_dt')
         return qs
     def render_to_response(self, context, **response_kwargs):
         qs = context['object_list']
@@ -191,6 +202,20 @@ class ApiDateUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
     model = Order
     fields = (
         'date',
+    )
+
+    def form_valid(self, form):
+        self.object = form.save()
+        post = obj_to_order(self.object)
+        return JsonResponse(data=post, safe=True, status=200)
+    
+    def form_invalid(self, form):
+        return JsonResponse(data=form.errors, safe=True, status=400)
+
+class ApiPayUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
+    model = Order
+    fields = (
+        'pay',
     )
 
     def form_valid(self, form):

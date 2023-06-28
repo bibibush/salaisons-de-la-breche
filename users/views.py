@@ -13,7 +13,7 @@ class MyLoginRequiredMixin(LoginRequiredMixin):
 class OwnerOnlyMixin(AccessMixin):
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if request.user.email != self.object.user.email:
+        if request.user.email != self.object.user.email and request.user.email != 'contact@salaisonsdelabreche.com':
             data = {'message': "Vous n'avez pas droit"}
             return JsonResponse(data=data, safe=True, status=403)
         return super().dispatch(request, *args, **kwargs)
