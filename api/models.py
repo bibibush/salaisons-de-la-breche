@@ -18,6 +18,7 @@ class Order(models.Model):
     date = models.DateField(null=True)
     pay = models.BooleanField(default=False)
     block = models.BooleanField(default=False)
+    done = models.BooleanField(default=False)
     
     def __str__(self):
         return self.nom

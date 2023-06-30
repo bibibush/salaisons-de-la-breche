@@ -82,7 +82,13 @@ class GetMe(View):
             }
         else:
             userDict= {
-                'username': 'annonymous'
+                'username': 'annonymous',
+                'nom' : '',
+                'prenom' : '',
+                'email': '',
+                'entreprise' : '',
+                'phonenumber' : '',
+                'adresse' : ''
             }
         return JsonResponse(data=userDict, safe=True, status=200)
 
@@ -163,6 +169,9 @@ class ApiCommandeListView(MyLoginRequiredMixin, BaseListView):
         return qs
     def render_to_response(self, context, **response_kwargs):
         qs = context['object_list']
+        for obj in qs:
+            if obj.date <= date.today():
+                obj.done = True
         postList = [obj_to_order(obj) for obj in qs]
         return JsonResponse(data=postList, safe=False, status=200)
 
