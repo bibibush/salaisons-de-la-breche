@@ -21,6 +21,7 @@ import urllib
 import mimetypes
 import os
 from datetime import date, timedelta
+from django.core.mail import EmailMessage
 
 
 # Create your views here.
@@ -43,7 +44,7 @@ class ApiLoginView(View):
                 return JsonResponse(data=userDict, safe=True, status=200)
         else:
             JsonResponse(data=form.errors, safe=True, status=400)
-    
+
 class ApiLogoutView(LogoutView):
     @method_decorator(csrf_protect)
     def post(self, request, *args, **kwargs):
@@ -82,7 +83,7 @@ class GetMe(View):
             }
         else:
             userDict= {
-                'username': 'annonymous',
+                'username': '',
                 'nom' : '',
                 'prenom' : '',
                 'email': '',
@@ -125,6 +126,10 @@ class ApiFileUploadView(MyLoginRequiredMixin,BaseCreateView):
             form.instance.block = True
         bon = form.save()
         post = obj_to_order(bon)
+        title = 'Votre commande est bien passé'
+        content = "Votre commande Nº" + post['order_number'] + " est bien passé. \nVotre commande arrive environ " + post['date'] + "\nMerci"
+        email = EmailMessage(subject=title, body=content, to=[post['email']])
+        email.send()
         return JsonResponse(data=post, safe=True, status=201)
     
     def form_invalid(self, form):
