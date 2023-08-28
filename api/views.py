@@ -1,9 +1,9 @@
 from typing import Any
 from django.shortcuts import render
 from django.views.generic.edit import BaseCreateView, BaseUpdateView
-from django.views.generic.detail import SingleObjectMixin, BaseDetailView
+from django.views.generic.detail import BaseDetailView
 from django.views.generic.list import BaseListView
-from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView
+from django.contrib.auth.views import LogoutView, PasswordChangeView
 from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
 from django.contrib.auth import login, logout, update_session_auth_hash
@@ -45,27 +45,30 @@ class ApiLoginView(View):
         else:
             JsonResponse(data=form.errors, safe=True, status=400)
 
+
 class ApiLogoutView(LogoutView):
     @method_decorator(csrf_protect)
     def post(self, request, *args, **kwargs):
         logout(request)
         return JsonResponse(data={}, safe=True, status=200)
-        
+
+
 class RegisterView(BaseCreateView):
     form_class = RegisterForm
 
     def form_valid(self, form):
         form.instance.username = form.instance.nom
         self.object = form.save()
-        userDict = {
+        user_dict = {
             'username': self.object.nom,
             'email': self.object.email,
         }
-        
-        return JsonResponse(data=userDict, safe=True, status=201 )
 
-    def form_invalid(self,form):
+        return JsonResponse(data=user_dict, safe=True, status=201)
+
+    def form_invalid(self, form):
         return JsonResponse(data=form.errors, safe=True, status=400)
+
 
 class GetMe(View):
     def get(self, request, *args, **kwargs):
@@ -74,24 +77,25 @@ class GetMe(View):
             userDict = {
                 'id': user.id,
                 'username': user.username,
-                'nom' : user.nom,
-                'prenom' : user.prenom,
+                'nom': user.nom,
+                'prenom': user.prenom,
                 'email': user.email,
-                'entreprise' : user.entreprise,
-                'phonenumber' : user.phonenumber,
-                'adresse' : user.adresse
+                'entreprise': user.entreprise,
+                'phonenumber': user.phonenumber,
+                'adresse': user.adresse
             }
         else:
-            userDict= {
+            userDict = {
                 'username': '',
-                'nom' : '',
-                'prenom' : '',
+                'nom': '',
+                'prenom': '',
                 'email': '',
-                'entreprise' : '',
-                'phonenumber' : '',
-                'adresse' : ''
+                'entreprise': '',
+                'phonenumber': '',
+                'adresse': ''
             }
         return JsonResponse(data=userDict, safe=True, status=200)
+
 
 class ApipwdChangeView(PasswordChangeView):
     def form_valid(self, form):
@@ -101,20 +105,22 @@ class ApipwdChangeView(PasswordChangeView):
         return JsonResponse(data={}, safe=True, status=200)
 
     def form_invalid(self, form):
-        return JsonResponse (data=form.errors, safe=True, status= 400)
+        return JsonResponse(data=form.errors, safe=True, status=400)
 
-class ApiFileDownloadView(MyLoginRequiredMixin,View):        
-    
+
+class ApiFileDownloadView(MyLoginRequiredMixin, View):
+
     def get(self, request, *args, **kwargs):
-        object = File.objects.get(title = 'first')
+        object = File.objects.get(title='first')
         file_path = object.file.path
         file_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         fs = FileSystemStorage(file_path)
-        response = FileResponse(fs.open(file_path, 'rb'), content_type= file_type)
-        response['Content-Disposition'] = f'attachment; filename=' + os.path.basename(file_path)
+        response = FileResponse(fs.open(file_path, 'rb'), content_type=file_type)
+        response['Content-Disposition'] = f'attachment; filename= {os.path.basename(file_path)}'
         return response
 
-class ApiFileUploadView(MyLoginRequiredMixin,BaseCreateView):
+
+class ApiFileUploadView(MyLoginRequiredMixin, BaseCreateView):
     model = Order
     fields = '__all__'
 
@@ -127,51 +133,58 @@ class ApiFileUploadView(MyLoginRequiredMixin,BaseCreateView):
         bon = form.save()
         post = obj_to_order(bon)
         title = 'Votre commande est bien passé'
-        content = "Votre commande Nº" + post['order_number'] + " est bien passé. \nVotre commande arrive environ " + post['date'] + "\nMerci"
+        content = "Votre commande Nº" + post['order_number'] + " est bien passé. \nVotre commande arrive environ " + \
+                  post['date'] + "\nMerci"
         email = EmailMessage(subject=title, body=content, to=[post['email']])
         email.send()
         return JsonResponse(data=post, safe=True, status=201)
-    
-    def form_invalid(self, form):
-        return JsonResponse(data= form.errors, safe=True, status= 400)
 
-class ApiCommandeInfoView(OwnerOnlyMixin,BaseDetailView):
-    model= Order
-    
+    def form_invalid(self, form):
+        return JsonResponse(data=form.errors, safe=True, status=400)
+
+
+class ApiCommandeInfoView(OwnerOnlyMixin, BaseDetailView):
+    model = Order
+
     def render_to_response(self, context, **response_kwargs):
-        self.object = context['object'] 
+        self.object = context['object']
         if date.today() >= self.object.date - timedelta(days=14):
             self.object.block = True
         post = obj_to_order(self.object)
         return JsonResponse(data=post, safe=True, status=200)
 
+
 class ApiCommandeManageView(OwnerOnlyMixin, BaseDetailView):
-    model= Order
+    model = Order
 
     def render_to_response(self, context, **response_kwargs):
         self.object = context['object']
         post = obj_to_order(self.object)
-        return JsonResponse (data=post, safe=True, status=200)
+        return JsonResponse(data=post, safe=True, status=200)
 
-class ApiCommandExcelView(OwnerOnlyMixin,BaseDetailView):
-    model= Order
+
+class ApiCommandExcelView(OwnerOnlyMixin, BaseDetailView):
+    model = Order
+
     def get(self, request, pk, *args, **kwargs):
         object = Order.objects.get(pk=pk)
-        file_path = object.order_file.path 
+        file_path = object.order_file.path
         file_name = urllib.parse.quote(object.order_file.name.encode('utf-8'))
         # file_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         fs = FileSystemStorage(file_path)
-        response = FileResponse(fs.open(file_path, 'rb'), content_type= mimetypes.guess_type(file_path)[0])
+        response = FileResponse(fs.open(file_path, 'rb'), content_type=mimetypes.guess_type(file_path)[0])
         response['Content-Disposition'] = f'attachment; filename*=UTF-8\'\'%s' % file_name
         return response
+
 
 class ApiCommandeListView(MyLoginRequiredMixin, BaseListView):
     def get_queryset(self):
         if self.request.user.email == 'contact@salaisonsdelabreche.com':
             qs = Order.objects.all().order_by('-create_dt')
         else:
-            qs = Order.objects.filter(user__email = self.request.user.email).order_by('-create_dt')
+            qs = Order.objects.filter(user__email=self.request.user.email).order_by('-create_dt')
         return qs
+
     def render_to_response(self, context, **response_kwargs):
         qs = context['object_list']
         for obj in qs:
@@ -180,27 +193,30 @@ class ApiCommandeListView(MyLoginRequiredMixin, BaseListView):
         postList = [obj_to_order(obj) for obj in qs]
         return JsonResponse(data=postList, safe=False, status=200)
 
+
 class ApiInfoUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
-    model=Order
-    fields= (
+    model = Order
+    fields = (
         'nom',
         'prenom',
         'adresse',
         'phonenumber',
         'entreprise',
         'email',
-        )
-    
+    )
+
     def form_valid(self, form):
         self.object = form.save()
         post = obj_to_order(self.object)
         return JsonResponse(data=post, safe=True, status=200)
+
     def form_invalid(self, form):
         return JsonResponse(data=form.errors, safe=True, status=400)
 
+
 class ApiExcelUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
-    model=Order
-    fields= (
+    model = Order
+    fields = (
         'order_file',
     )
 
@@ -208,9 +224,10 @@ class ApiExcelUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
         self.object = form.save()
         post = obj_to_order(self.object)
         return JsonResponse(data=post, safe=True, status=200)
-    
+
     def form_invalid(self, form):
         return JsonResponse(data=form.errors, safe=True, status=400)
+
 
 class ApiDateUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
     model = Order
@@ -222,9 +239,10 @@ class ApiDateUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
         self.object = form.save()
         post = obj_to_order(self.object)
         return JsonResponse(data=post, safe=True, status=200)
-    
+
     def form_invalid(self, form):
         return JsonResponse(data=form.errors, safe=True, status=400)
+
 
 class ApiPayUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
     model = Order
@@ -236,6 +254,6 @@ class ApiPayUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
         self.object = form.save()
         post = obj_to_order(self.object)
         return JsonResponse(data=post, safe=True, status=200)
-    
+
     def form_invalid(self, form):
         return JsonResponse(data=form.errors, safe=True, status=400)
