@@ -208,6 +208,11 @@ class ApiInfoUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
     def form_valid(self, form):
         self.object = form.save()
         post = obj_to_order(self.object)
+        title = 'Votre commande est bien modifié'
+        content = f'Votre commande Nº{post["order_number"]} est bien modifié. \nVotre commande arrive environ \
+                  {post["date"]} \nMerci'
+        email = EmailMessage(subject=title, body=content, to=[post['email']])
+        email.send()
         return JsonResponse(data=post, safe=True, status=200)
 
     def form_invalid(self, form):
@@ -223,6 +228,11 @@ class ApiExcelUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
     def form_valid(self, form):
         self.object = form.save()
         post = obj_to_order(self.object)
+        title = 'Votre commande est bien modifié'
+        content = f'Votre commande Nº{post["order_number"]} est bien modifié. \nVotre commande arrive environ \
+                  {post["date"]} \nMerci'
+        email = EmailMessage(subject=title, body=content, to=[self.request.user.email])
+        email.send()
         return JsonResponse(data=post, safe=True, status=200)
 
     def form_invalid(self, form):
@@ -238,6 +248,11 @@ class ApiDateUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
     def form_valid(self, form):
         self.object = form.save()
         post = obj_to_order(self.object)
+        title = 'Votre commande est bien modifié'
+        content = f'Votre commande Nº{post["order_number"]} est bien modifié. \nVotre commande arrive environ \
+                  {post["date"]} \nMerci'
+        email = EmailMessage(subject=title, body=content, to=[self.request.user.email])
+        email.send()
         return JsonResponse(data=post, safe=True, status=200)
 
     def form_invalid(self, form):
@@ -253,6 +268,12 @@ class ApiPayUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
     def form_valid(self, form):
         self.object = form.save()
         post = obj_to_order(self.object)
+        title = 'Votre payment est bien verifié'
+        content = f'Votre commande Nº{post["order_number"]} est bien payé. \nVotre commande arrive environ \
+                  {post["date"]} \nMerci'
+        obj = self.get_object()
+        email = EmailMessage(subject=title, body=content, to=[obj.user.email])
+        email.send()
         return JsonResponse(data=post, safe=True, status=200)
 
     def form_invalid(self, form):
