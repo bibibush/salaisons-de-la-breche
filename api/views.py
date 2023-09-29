@@ -100,8 +100,11 @@ class GetMe(View):
 class ApipwdChangeView(PasswordChangeView):
     def form_valid(self, form):
         form.save()
+        new_pw = form.cleaned_data.get('new_password1')
+        old_pw = form.cleaned_data.get('old_password')
+        if new_pw == old_pw:
+            return JsonResponse(data=form.errors, safe=True, status=401)
         update_session_auth_hash(self.request, form.user)
-
         return JsonResponse(data={}, safe=True, status=200)
 
     def form_invalid(self, form):
