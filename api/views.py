@@ -103,6 +103,7 @@ class ApipwdChangeView(PasswordChangeView):
         new_pw = form.cleaned_data.get('new_password1')
         old_pw = form.cleaned_data.get('old_password')
         if new_pw == old_pw:
+            update_session_auth_hash(self.request, form.user)
             return JsonResponse(data=form.errors, safe=True, status=401)
         update_session_auth_hash(self.request, form.user)
         return JsonResponse(data={}, safe=True, status=200)
@@ -122,6 +123,16 @@ class ApiFileDownloadView(MyLoginRequiredMixin, View):
         response['Content-Disposition'] = f'attachment; filename= {os.path.basename(file_path)}'
         return response
 
+class ApiBonDownloadView(MyLoginRequiredMixin, View):
+
+    def get(self, request, *args, **kwargs):
+        object = File.objects.get(title = 'bon')
+        file_path = object.file.path
+        file_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml'
+        fs = FileSystemStorage(file_path)
+        response = FileResponse(fs.open(file_path, 'rb'), content_type = file_type)
+        response['Content-Disposition'] = f'attachment; filename= {os.path.basename(file_path)}'
+        return response
 
 class ApiFileUploadView(MyLoginRequiredMixin, BaseCreateView):
     model = Order
@@ -178,7 +189,6 @@ class ApiCommandExcelView(OwnerOnlyMixin, BaseDetailView):
         response = FileResponse(fs.open(file_path, 'rb'), content_type=mimetypes.guess_type(file_path)[0])
         response['Content-Disposition'] = f'attachment; filename*=UTF-8\'\'%s' % file_name
         return response
-
 
 class ApiCommandeListView(MyLoginRequiredMixin, BaseListView):
     def get_queryset(self):
