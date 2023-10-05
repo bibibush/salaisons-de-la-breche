@@ -126,13 +126,15 @@ class ApiFileDownloadView(MyLoginRequiredMixin, View):
 class ApiBonDownloadView(MyLoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
-        object = File.objects.get(title = 'bon')
+        object = File.objects.get(title='bon')
         file_path = object.file.path
-        file_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml'
-        fs = FileSystemStorage(file_path)
-        response = FileResponse(fs.open(file_path, 'rb'), content_type = file_type)
-        response['Content-Disposition'] = f'attachment; filename= {os.path.basename(file_path)}'
-        return response
+        file_type = 'application/pdf'
+        with open(file_path, 'rb') as f:
+            content = f.read()
+            response = HttpResponse(content ,content_type = file_type)
+            response['Content-Disposition'] = f'attachment; filename= {os.path.basename(file_path)}'
+            response['Content-Length'] = len(content)
+            return response
 
 class ApiFileUploadView(MyLoginRequiredMixin, BaseCreateView):
     model = Order
