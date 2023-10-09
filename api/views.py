@@ -1,6 +1,6 @@
 from typing import Any
 from django.shortcuts import render
-from django.views.generic.edit import BaseCreateView, BaseUpdateView
+from django.views.generic.edit import BaseCreateView, BaseUpdateView, BaseDeleteView
 from django.views.generic.detail import BaseDetailView
 from django.views.generic.list import BaseListView
 from django.contrib.auth.views import LogoutView, PasswordChangeView
@@ -12,7 +12,7 @@ from django.core.files.storage import FileSystemStorage
 from api.models import Order, File
 from users.models import Users
 from users.views import MyLoginRequiredMixin, OwnerOnlyMixin
-from django.http import HttpResponse, JsonResponse, FileResponse
+from django.http import HttpResponse, JsonResponse, FileResponse, HttpResponseRedirect
 from api.views_utils import obj_to_order
 from api.views_utils import random_letters
 from django.views import View
@@ -22,7 +22,6 @@ import mimetypes
 import os
 from datetime import date, timedelta
 from django.core.mail import EmailMessage
-
 
 # Create your views here.
 
@@ -293,3 +292,11 @@ class ApiPayUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
 
     def form_invalid(self, form):
         return JsonResponse(data=form.errors, safe=True, status=400)
+
+class ApiDeleteView(BaseDeleteView, OwnerOnlyMixin):
+    model = Order
+    
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
+        return JsonResponse(data={}, safe=True, status=204)
