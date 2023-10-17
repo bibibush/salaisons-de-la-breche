@@ -13,12 +13,14 @@ class Order(models.Model):
     email = models.CharField('email',max_length=50)
     create_dt = models.DateTimeField('create date',auto_now_add=True)
     modify_dt = models.DateField('modify date',auto_now=True)
-    order_file = models.FileField(upload_to='upload/', null=True)
+    order_file = models.FileField(upload_to='upload/', null=True,)
     order_number = models.CharField('order number',max_length=10, blank=True)
     date = models.DateField(null=True)
     pay = models.BooleanField(default=False)
     block = models.BooleanField(default=False)
     done = models.BooleanField(default=False)
+    validable = models.BooleanField(default=False)
+    paspaye = models.BooleanField(default=False)
     
     def __str__(self):
         return self.nom

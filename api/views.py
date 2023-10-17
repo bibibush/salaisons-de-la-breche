@@ -11,7 +11,7 @@ from django.contrib.auth import get_user_model, get_user
 from django.core.files.storage import FileSystemStorage
 from api.models import Order, File
 from users.models import Users
-from users.views import MyLoginRequiredMixin, OwnerOnlyMixin
+from users.views import MyLoginRequiredMixin, OwnerOnlyMixin, AdminOnlyMixin
 from django.http import HttpResponse, JsonResponse, FileResponse, HttpResponseRedirect
 from api.views_utils import obj_to_order
 from api.views_utils import random_letters
@@ -140,8 +140,13 @@ class ApiFileUploadView(MyLoginRequiredMixin, BaseCreateView):
     fields = '__all__'
 
     def form_valid(self, form):
+        qs = Order.objects.all()
+        
         form.instance.user = self.request.user
-        form.instance.order_number = random_letters(10)
+        for obj in qs:
+            form.instance.order_number = random_letters(10)
+            while form.instance.order_number == obj.order_number:
+                form.instance.order_number = random_letters(10)
         self.object = form.save()
         if date.today() >= self.object.date - timedelta(days=14):
             form.instance.block = True
@@ -163,6 +168,12 @@ class ApiCommandeInfoView(OwnerOnlyMixin, BaseDetailView):
 
     def render_to_response(self, context, **response_kwargs):
         self.object = context['object']
+        if date.today() >= self.object.date - timedelta(days=14) and not self.object.pay:
+            self.object.paspaye = True
+        elif date.today() >= self.object.date - timedelta(days=14) and self.object.pay:
+            self.object.validable = True
+            if date.today() >= self.object.date and self.object.pay:
+                self.object.done = True
         if date.today() >= self.object.date - timedelta(days=14):
             self.object.block = True
         post = obj_to_order(self.object)
@@ -170,6 +181,14 @@ class ApiCommandeInfoView(OwnerOnlyMixin, BaseDetailView):
 
 
 class ApiCommandeManageView(OwnerOnlyMixin, BaseDetailView):
+    model = Order
+
+    def render_to_response(self, context, **response_kwargs):
+        self.object = context['object']
+        post = obj_to_order(self.object)
+        return JsonResponse(data=post, safe=True, status=200)
+
+class ApiAdminCommandeManageView(AdminOnlyMixin, BaseDetailView):
     model = Order
 
     def render_to_response(self, context, **response_kwargs):
@@ -202,8 +221,34 @@ class ApiCommandeListView(MyLoginRequiredMixin, BaseListView):
     def render_to_response(self, context, **response_kwargs):
         qs = context['object_list']
         for obj in qs:
-            if obj.date <= date.today():
-                obj.done = True
+            if date.today() >= obj.date - timedelta(days=14) and not obj.pay:
+                obj.paspaye = True
+            elif date.today() >= obj.date - timedelta(days=14) and obj.pay:
+                obj.validable = True
+                if date.today() >= obj.date and obj.pay:
+                    obj.done = True
+            
+        postList = [obj_to_order(obj) for obj in qs]
+        return JsonResponse(data=postList, safe=False, status=200)
+
+class ApiAdminListView( AdminOnlyMixin, BaseListView ):
+    def get_queryset(self):
+        if self.request.user.email == 'contact@salaisonsdelabreche.com':
+            qs = Order.objects.all().order_by('-create_dt')
+        else:
+            qs = []
+        return qs
+
+    def render_to_response(self, context, **response_kwargs):
+        qs = context['object_list']
+        for obj in qs:
+            if date.today() >= obj.date - timedelta(days=14) and not obj.pay:
+                obj.paspaye = True
+            elif date.today() >= obj.date - timedelta(days=14) and obj.pay:
+                obj.validable = True
+                if date.today() >= obj.date and obj.pay:
+                    obj.done = True
+            
         postList = [obj_to_order(obj) for obj in qs]
         return JsonResponse(data=postList, safe=False, status=200)
 
@@ -245,7 +290,9 @@ class ApiExcelUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
         title = 'Votre commande est bien modifié'
         content = f'Votre commande Nº{post["order_number"]} est bien modifié. \nVotre commande arrive environ \
                   {post["date"]} \nMerci'
-        email = EmailMessage(subject=title, body=content, to=[self.request.user.email])
+        obj = self.get_object()
+        to = obj.email
+        email = EmailMessage(subject=title, body=content, to=[to])
         email.send()
         return JsonResponse(data=post, safe=True, status=200)
 
@@ -265,7 +312,9 @@ class ApiDateUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
         title = 'Votre commande est bien modifié'
         content = f'Votre commande Nº{post["order_number"]} est bien modifié. \nVotre commande arrive environ \
                   {post["date"]} \nMerci'
-        email = EmailMessage(subject=title, body=content, to=[self.request.user.email])
+        obj = self.get_object()
+        to = obj.email
+        email = EmailMessage(subject=title, body=content, to=[to])
         email.send()
         return JsonResponse(data=post, safe=True, status=200)
 
@@ -286,7 +335,7 @@ class ApiPayUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
         content = f'Votre commande Nº{post["order_number"]} est bien payé. \nVotre commande arrive environ \
                   {post["date"]} \nMerci'
         obj = self.get_object()
-        email = EmailMessage(subject=title, body=content, to=[obj.user.email])
+        email = EmailMessage(subject=title, body=content, to=[obj.email])
         email.send()
         return JsonResponse(data=post, safe=True, status=200)
 
@@ -298,5 +347,6 @@ class ApiDeleteView(BaseDeleteView, OwnerOnlyMixin):
     
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
+        os.remove(self.object.order_file.path)
         self.object.delete()
         return JsonResponse(data={}, safe=True, status=204)

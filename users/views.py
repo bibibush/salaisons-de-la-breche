@@ -18,3 +18,9 @@ class OwnerOnlyMixin(AccessMixin):
             return JsonResponse(data=data, safe=True, status=403)
         return super().dispatch(request, *args, **kwargs)
         
+class AdminOnlyMixin(LoginRequiredMixin, AccessMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.email != 'contact@salaisonsdelabreche.com':
+            data = {'message': "Vous n'avez pas droit"}
+            return JsonResponse(data=data, safe=True, status=401)
+        return super().dispatch(request, *args, **kwargs)

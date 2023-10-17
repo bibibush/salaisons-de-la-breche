@@ -10,7 +10,7 @@ def obj_to_order(obj):
         post['order_file'] = ''
     
     if obj.date:
-        post['date'] = obj.date.strftime('%d/%m/%Y')
+        post['date'] = obj.date.strftime('%Y-%m-%d')
     else:
         post['date'] = ''
       
@@ -34,7 +34,7 @@ def obj_to_order(obj):
     return post
 
 def random_letters(digit):
-     string_pool = string.ascii_uppercase + string.digits
+     string_pool = string.digits
      result = ""
      for i in range(int(digit)):
          result += choice(string_pool)
