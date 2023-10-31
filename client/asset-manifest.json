@@ -1,0 +1,43 @@
+{
+  "files": {
+    "main.css": "./static/css/main.b3f4d584.css",
+    "main.js": "./static/js/main.d39b2fe2.js",
+    "static/js/787.1c8a8330.chunk.js": "./static/js/787.1c8a8330.chunk.js",
+    "static/media/IMG_4165.JPG": "./static/media/IMG_4165.597157330242990c38f5.JPG",
+    "static/media/hg 300-400.JPG": "./static/media/hg 300-400.d79ce1fedd0a4d675194.JPG",
+    "static/media/IMG_4145.JPG": "./static/media/IMG_4145.c68d6c2b555d0239b0ba.JPG",
+    "static/media/essay 2.png": "./static/media/essay 2.a23cef4eebe69722e8bf.png",
+    "static/media/terrines.png": "./static/media/terrines.bdf968de4506b823e228.png",
+    "static/media/Slate.png": "./static/media/Slate.7d259ed4957ccf76af92.png",
+    "static/media/SALAISONS DE LA BRECHE - Famille Prost.jpg": "./static/media/SALAISONS DE LA BRECHE - Famille Prost.c4697a82f7c60fe2a15d.jpg",
+    "static/media/logo-Salaisons-de-la-Brèche- Fond transparent.png": "./static/media/logo-Salaisons-de-la-Brèche- Fond transparent.21a113fd715876ba6adc.png",
+    "static/media/logo-Salaisons-de-la-Brèche-Blanc.png": "./static/media/logo-Salaisons-de-la-Brèche-Blanc.05771aafe013784a8511.png",
+    "static/media/recappe.png": "./static/media/recappe.9f8f8c7e7ddf9a34b88e.png",
+    "static/media/conseil.png": "./static/media/conseil.7f11d950e7ab49efee12.png",
+    "static/media/totaltarif.png": "./static/media/totaltarif.30750d9f482035bdb1d1.png",
+    "static/media/groupe 1.png": "./static/media/groupe 1.048d6b05c42fedbd5095.png",
+    "static/media/nom_prenom.png": "./static/media/nom_prenom.9f5609203c3efea0314e.png",
+    "static/media/quantite.png": "./static/media/quantite.40f35fd184286e74ad5c.png",
+    "static/media/montdulyonnais.jpg": "./static/media/montdulyonnais.5942b0fabb53066be7ac.jpg",
+    "static/media/JAMBON-CRU-ARTICLE.jpg": "./static/media/JAMBON-CRU-ARTICLE.9d5cc3a86744eb69b24b.jpg",
+    "static/media/atelier-de-fabrication-Régis-Bozon-©OT-Thônes-CDV-30-1200x800.jpg": "./static/media/atelier-de-fabrication-Régis-Bozon-©OT-Thônes-CDV-30-1200x800.bd175ff022157ac35d92.jpg",
+    "static/media/Futuristic Stylish.otf": "./static/media/Futuristic Stylish.004b4046df891b6b85c6.otf",
+    "static/media/france-carteavecline.png": "./static/media/france-carteavecline.df3d0907277cd074c61a.png",
+    "static/media/Purveyors of healthy, earty harvests.png": "./static/media/Purveyors of healthy, earty harvests.ea927aad960d83502d92.png",
+    "static/media/darkbg.png": "./static/media/darkbg.1071a785d5bde369432e.png",
+    "static/media/나뭇잎.png": "./static/media/나뭇잎.6057ecb93a336fcc1f80.png",
+    "static/media/모래시계.png": "./static/media/모래시계.bfc7c8cf0324f2ea413b.png",
+    "static/media/돋보기.png": "./static/media/돋보기.e83853c9351a86f716d5.png",
+    "static/media/logo artisan.png": "./static/media/logo artisan.aed3eaa202041c7cb467.png",
+    "static/media/excel.png": "./static/media/excel.0726a5cb94a38cf0ba73.png",
+    "static/media/pdf.png": "./static/media/pdf.520bc095601b448978f9.png",
+    "index.html": "./index.html",
+    "main.b3f4d584.css.map": "./static/css/main.b3f4d584.css.map",
+    "main.d39b2fe2.js.map": "./static/js/main.d39b2fe2.js.map",
+    "787.1c8a8330.chunk.js.map": "./static/js/787.1c8a8330.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b3f4d584.css",
+    "static/js/main.d39b2fe2.js"
+  ]
+}
