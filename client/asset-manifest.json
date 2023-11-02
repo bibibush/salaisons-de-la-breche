@@ -1,8 +1,9 @@
 {
   "files": {
-    "main.css": "./static/css/main.4e0c0c7d.css",
-    "main.js": "./static/js/main.be76b732.js",
+    "main.css": "./static/css/main.6a0bc724.css",
+    "main.js": "./static/js/main.0f1cc24c.js",
     "static/js/787.1c8a8330.chunk.js": "./static/js/787.1c8a8330.chunk.js",
+    "static/media/031_SalaisonsCros-FranckTourneretPhotographe.jpg": "./static/media/031_SalaisonsCros-FranckTourneretPhotographe.2743e6c2a8d9c91f8ff8.jpg",
     "static/media/IMG_4165.JPG": "./static/media/IMG_4165.597157330242990c38f5.JPG",
     "static/media/hg 300-400.JPG": "./static/media/hg 300-400.d79ce1fedd0a4d675194.JPG",
     "static/media/IMG_4145.JPG": "./static/media/IMG_4145.c68d6c2b555d0239b0ba.JPG",
@@ -19,7 +20,6 @@
     "static/media/nom_prenom.png": "./static/media/nom_prenom.9f5609203c3efea0314e.png",
     "static/media/quantite.png": "./static/media/quantite.40f35fd184286e74ad5c.png",
     "static/media/montdulyonnais.jpg": "./static/media/montdulyonnais.5942b0fabb53066be7ac.jpg",
-    "static/media/JAMBON-CRU-ARTICLE.jpg": "./static/media/JAMBON-CRU-ARTICLE.9d5cc3a86744eb69b24b.jpg",
     "static/media/atelier-de-fabrication-Régis-Bozon-©OT-Thônes-CDV-30-1200x800.jpg": "./static/media/atelier-de-fabrication-Régis-Bozon-©OT-Thônes-CDV-30-1200x800.bd175ff022157ac35d92.jpg",
     "static/media/Futuristic Stylish.otf": "./static/media/Futuristic Stylish.004b4046df891b6b85c6.otf",
     "static/media/darkbg.png": "./static/media/darkbg.1071a785d5bde369432e.png",
@@ -30,12 +30,12 @@
     "static/media/excel.png": "./static/media/excel.0726a5cb94a38cf0ba73.png",
     "static/media/pdf.png": "./static/media/pdf.520bc095601b448978f9.png",
     "index.html": "./index.html",
-    "main.4e0c0c7d.css.map": "./static/css/main.4e0c0c7d.css.map",
-    "main.be76b732.js.map": "./static/js/main.be76b732.js.map",
+    "main.6a0bc724.css.map": "./static/css/main.6a0bc724.css.map",
+    "main.0f1cc24c.js.map": "./static/js/main.0f1cc24c.js.map",
     "787.1c8a8330.chunk.js.map": "./static/js/787.1c8a8330.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4e0c0c7d.css",
-    "static/js/main.be76b732.js"
+    "static/css/main.6a0bc724.css",
+    "static/js/main.0f1cc24c.js"
   ]
 }
