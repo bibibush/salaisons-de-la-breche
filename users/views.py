@@ -1,5 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, AccessMixin
 from django.http import JsonResponse
+from django.views.generic.edit import BaseUpdateView
+from users.models import Users
 
 # Create your views here.
 
@@ -24,3 +26,29 @@ class AdminOnlyMixin(LoginRequiredMixin, AccessMixin):
             data = {'message': "Vous n'avez pas droit"}
             return JsonResponse(data=data, safe=True, status=401)
         return super().dispatch(request, *args, **kwargs)
+
+class UserInfoUpdate(BaseUpdateView):
+    model = Users
+    fields = (
+        'nom',
+        'prenom',
+        'email',
+        'entreprise',
+        'phonenumber',
+        'adresse',
+    )
+    
+    def form_valid(self, form):
+        self.object = form.save()
+        post = {
+            'nom' : self.object.nom,
+            'prenom' : self.object.prenom,
+            'email' : self.object.email,
+            'entreprise' : self.object.entreprise,
+            'phonenumber' : self.object.phonenumber,
+            'adresse' : self.object.adresse,
+                }
+        
+        return JsonResponse(data=post, safe=True, status= 200)
+    def form_invalid(self, form):
+        return JsonResponse(data=form.errors, safe=True, status=400)

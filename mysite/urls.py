@@ -20,11 +20,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.views.static import serve
+from django.contrib.sitemaps import GenericSitemap
+from django.contrib.sitemaps.views import sitemap
+from api.models import Order
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name="index.html"), name='index'),
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
+    path('user/', include('users.urls')),
+    path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),name="robot.txt"),
+    path('sitemap.xml',TemplateView.as_view(template_name="sitemap.xml", content_type="application/xml"), name="sitemap"),
     re_path(r'.*', TemplateView.as_view(template_name='index.html'), name='react'),
     # re_path(r'^static/(?P<path>.*)$', serve, {'document_root' : settings.STATIC_ROOT}),
     # re_path(r'.*', TemplateView.as_view(template_name = 'index.html'), name= 'react-web')

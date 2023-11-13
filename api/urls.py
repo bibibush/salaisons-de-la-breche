@@ -23,5 +23,5 @@ urlpatterns = [
    path('excel/<int:pk>/update', views.ApiExcelUpdateView.as_view(), name='excel_update'),
    path('date/<int:pk>/update', views.ApiDateUpdateView.as_view(), name='date_update'),
    path('pay/<int:pk>/update', views.ApiPayUpdateView.as_view(), name='pay_update'),
-   path('commande/<int:pk>/delete', views.ApiDeleteView.as_view(), name='delete')
+   path('commande/<int:pk>/delete', views.ApiDeleteView.as_view(), name='delete'),
 ]
