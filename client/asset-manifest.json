@@ -1,9 +1,11 @@
 {
   "files": {
-    "main.css": "./static/css/main.ca91c069.css",
-    "main.js": "./static/js/main.ea33aa25.js",
+    "main.css": "./static/css/main.4fda6f2a.css",
+    "main.js": "./static/js/main.554ce666.js",
     "static/js/787.1c8a8330.chunk.js": "./static/js/787.1c8a8330.chunk.js",
     "static/media/031_SalaisonsCros-FranckTourneretPhotographe.jpg": "./static/media/031_SalaisonsCros-FranckTourneretPhotographe.2743e6c2a8d9c91f8ff8.jpg",
+    "static/media/mignonettes.jpg": "./static/media/mignonettes.062e000230204b5490f8.jpg",
+    "static/media/cuire_photp_plus_left.jpg": "./static/media/cuire_photp_plus_left.cc6fa474ddbdc974f4df.jpg",
     "static/media/IMG_4165.JPG": "./static/media/IMG_4165.597157330242990c38f5.JPG",
     "static/media/montdulyonnais2.JPG": "./static/media/montdulyonnais2.fba940452ebfa397a225.JPG",
     "static/media/IMG_sechoir.jpg": "./static/media/IMG_sechoir.9b4f6149ae4e6e12a256.jpg",
@@ -33,12 +35,12 @@
     "static/media/excel.png": "./static/media/excel.0726a5cb94a38cf0ba73.png",
     "static/media/pdf.png": "./static/media/pdf.520bc095601b448978f9.png",
     "index.html": "./index.html",
-    "main.ca91c069.css.map": "./static/css/main.ca91c069.css.map",
-    "main.ea33aa25.js.map": "./static/js/main.ea33aa25.js.map",
+    "main.4fda6f2a.css.map": "./static/css/main.4fda6f2a.css.map",
+    "main.554ce666.js.map": "./static/js/main.554ce666.js.map",
     "787.1c8a8330.chunk.js.map": "./static/js/787.1c8a8330.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ca91c069.css",
-    "static/js/main.ea33aa25.js"
+    "static/css/main.4fda6f2a.css",
+    "static/js/main.554ce666.js"
   ]
 }
