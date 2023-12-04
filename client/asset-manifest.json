@@ -1,13 +1,12 @@
 {
   "files": {
-    "main.css": "./static/css/main.82a98701.css",
-    "main.js": "./static/js/main.bbefaa19.js",
+    "main.css": "./static/css/main.62c75381.css",
+    "main.js": "./static/js/main.38bdd0ef.js",
     "static/js/787.1c8a8330.chunk.js": "./static/js/787.1c8a8330.chunk.js",
     "static/media/031_SalaisonsCros-FranckTourneretPhotographe.jpg": "./static/media/031_SalaisonsCros-FranckTourneretPhotographe.2743e6c2a8d9c91f8ff8.jpg",
     "static/media/mignonettes.jpg": "./static/media/mignonettes.062e000230204b5490f8.jpg",
     "static/media/cuire_photp_plus_left.jpg": "./static/media/cuire_photp_plus_left.cc6fa474ddbdc974f4df.jpg",
     "static/media/sechoir_new.jpg": "./static/media/sechoir_new.767eb8184c1805b7e4af.jpg",
-    "static/media/montdulyonnais2.JPG": "./static/media/montdulyonnais2.fba940452ebfa397a225.JPG",
     "static/media/IMG_spe.jpg": "./static/media/IMG_spe.f8f08830d7fb2abf9f04.jpg",
     "static/media/7800 tra.jpg": "./static/media/7800 tra.aa75cf15bd6be8571876.jpg",
     "static/media/IMG_sag.jpg": "./static/media/IMG_sag.cda1274b405e25f8f4bc.jpg",
@@ -19,28 +18,18 @@
     "static/media/SALAISONS DE LA BRECHE - Famille Prost.jpg": "./static/media/SALAISONS DE LA BRECHE - Famille Prost.c4697a82f7c60fe2a15d.jpg",
     "static/media/logo-Salaisons-de-la-Brèche- Fond transparent.png": "./static/media/logo-Salaisons-de-la-Brèche- Fond transparent.21a113fd715876ba6adc.png",
     "static/media/logo-Salaisons-de-la-Brèche-Blanc.png": "./static/media/logo-Salaisons-de-la-Brèche-Blanc.05771aafe013784a8511.png",
-    "static/media/recappe.png": "./static/media/recappe.9f8f8c7e7ddf9a34b88e.png",
-    "static/media/conseil.png": "./static/media/conseil.7f11d950e7ab49efee12.png",
-    "static/media/totaltarif.png": "./static/media/totaltarif.30750d9f482035bdb1d1.png",
-    "static/media/groupe 1.png": "./static/media/groupe 1.048d6b05c42fedbd5095.png",
-    "static/media/nom_prenom.png": "./static/media/nom_prenom.9f5609203c3efea0314e.png",
-    "static/media/quantite.png": "./static/media/quantite.40f35fd184286e74ad5c.png",
-    "static/media/atelier-de-fabrication-Régis-Bozon-©OT-Thônes-CDV-30-1200x800.jpg": "./static/media/atelier-de-fabrication-Régis-Bozon-©OT-Thônes-CDV-30-1200x800.bd175ff022157ac35d92.jpg",
     "static/media/Futuristic Stylish.otf": "./static/media/Futuristic Stylish.004b4046df891b6b85c6.otf",
-    "static/media/darkbg.png": "./static/media/darkbg.1071a785d5bde369432e.png",
     "static/media/나뭇잎.png": "./static/media/나뭇잎.6057ecb93a336fcc1f80.png",
     "static/media/모래시계.png": "./static/media/모래시계.bfc7c8cf0324f2ea413b.png",
     "static/media/돋보기.png": "./static/media/돋보기.e83853c9351a86f716d5.png",
     "static/media/logo artisan.png": "./static/media/logo artisan.aed3eaa202041c7cb467.png",
-    "static/media/excel.png": "./static/media/excel.0726a5cb94a38cf0ba73.png",
-    "static/media/pdf.png": "./static/media/pdf.520bc095601b448978f9.png",
     "index.html": "./index.html",
-    "main.82a98701.css.map": "./static/css/main.82a98701.css.map",
-    "main.bbefaa19.js.map": "./static/js/main.bbefaa19.js.map",
+    "main.62c75381.css.map": "./static/css/main.62c75381.css.map",
+    "main.38bdd0ef.js.map": "./static/js/main.38bdd0ef.js.map",
     "787.1c8a8330.chunk.js.map": "./static/js/787.1c8a8330.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.82a98701.css",
-    "static/js/main.bbefaa19.js"
+    "static/css/main.62c75381.css",
+    "static/js/main.38bdd0ef.js"
   ]
 }

@@ -30,8 +30,8 @@ class ApiLoginView(View):
     def post(self, request, *args, **kwargs):
         form = LoginForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data.get("email")
-            password = form.cleaned_data.get("password")
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
             user = Users.objects.get(email=email)
             if user.check_password(password):
                 login(self.request, user)
@@ -147,7 +147,7 @@ class ApiFileUploadView(MyLoginRequiredMixin, BaseCreateView):
             form.instance.order_number = random_letters(10)
             while form.instance.order_number == obj.order_number:
                 form.instance.order_number = random_letters(10)
-        self.object = form.save()
+        self.object = form.save(commit=False)
         if date.today() >= self.object.date - timedelta(days=14):
             form.instance.block = True
         bon = form.save()
