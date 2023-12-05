@@ -13,12 +13,8 @@ class RegisterForm(UserCreationForm):
         model = Users
         fields = (
             "username",
-            "nom",
-            "prenom",
             "email",
             "adresse",
             "phonenumber",
-            "password1",
-            "password2",
         )
     

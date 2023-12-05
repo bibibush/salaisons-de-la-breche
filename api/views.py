@@ -76,8 +76,6 @@ class GetMe(View):
             userDict = {
                 'id': user.id,
                 'username': user.username,
-                'nom': user.nom,
-                'prenom': user.prenom,
                 'email': user.email,
                 'entreprise': user.entreprise,
                 'phonenumber': user.phonenumber,
@@ -86,8 +84,6 @@ class GetMe(View):
         else:
             userDict = {
                 'username': '',
-                'nom': '',
-                'prenom': '',
                 'email': '',
                 'entreprise': '',
                 'phonenumber': '',
@@ -98,12 +94,12 @@ class GetMe(View):
 
 class ApipwdChangeView(PasswordChangeView):
     def form_valid(self, form):
-        form.save()
         new_pw = form.cleaned_data.get('new_password1')
         old_pw = form.cleaned_data.get('old_password')
         if new_pw == old_pw:
             update_session_auth_hash(self.request, form.user)
             return JsonResponse(data=form.errors, safe=True, status=401)
+        form.save()
         update_session_auth_hash(self.request, form.user)
         return JsonResponse(data={}, safe=True, status=200)
 
@@ -256,8 +252,6 @@ class ApiAdminListView( AdminOnlyMixin, BaseListView ):
 class ApiInfoUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
     model = Order
     fields = (
-        'nom',
-        'prenom',
         'adresse',
         'phonenumber',
         'entreprise',

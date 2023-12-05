@@ -30,8 +30,6 @@ class AdminOnlyMixin(LoginRequiredMixin, AccessMixin):
 class UserInfoUpdate(BaseUpdateView):
     model = Users
     fields = (
-        'nom',
-        'prenom',
         'email',
         'entreprise',
         'phonenumber',
@@ -41,8 +39,6 @@ class UserInfoUpdate(BaseUpdateView):
     def form_valid(self, form):
         self.object = form.save()
         post = {
-            'nom' : self.object.nom,
-            'prenom' : self.object.prenom,
             'email' : self.object.email,
             'entreprise' : self.object.entreprise,
             'phonenumber' : self.object.phonenumber,
