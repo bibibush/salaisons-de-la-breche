@@ -31,6 +31,8 @@ class UserInfoUpdate(BaseUpdateView):
     model = Users
     fields = (
         'email',
+        'first_name',
+        'last_name',
         'entreprise',
         'phonenumber',
         'adresse',
@@ -40,6 +42,8 @@ class UserInfoUpdate(BaseUpdateView):
         self.object = form.save()
         post = {
             'email' : self.object.email,
+            'nom': self.object.first_name,
+            'prenom': self.object.last_name,
             'entreprise' : self.object.entreprise,
             'phonenumber' : self.object.phonenumber,
             'adresse' : self.object.adresse,

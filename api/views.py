@@ -34,7 +34,7 @@ class ApiLoginView(View):
             password = form.cleaned_data['password']
             user = Users.objects.get(email=email)
             if user.check_password(password):
-                login(self.request, user)
+                login(request, user)
                 userDict = {
                     'id': user.id,
                     'username': user.username,
@@ -56,10 +56,10 @@ class RegisterView(BaseCreateView):
     form_class = RegisterForm
 
     def form_valid(self, form):
-        form.instance.username = form.instance.nom
+        form.instance.username = form.instance.first_name
         self.object = form.save()
         user_dict = {
-            'username': self.object.nom,
+            'username': self.object.first_name,
             'email': self.object.email,
         }
 
@@ -76,6 +76,8 @@ class GetMe(View):
             userDict = {
                 'id': user.id,
                 'username': user.username,
+                'nom': user.first_name,
+                'prenom': user.last_name,
                 'email': user.email,
                 'entreprise': user.entreprise,
                 'phonenumber': user.phonenumber,
@@ -84,6 +86,8 @@ class GetMe(View):
         else:
             userDict = {
                 'username': '',
+                'nom': '',
+                'prenom': '',
                 'email': '',
                 'entreprise': '',
                 'phonenumber': '',
@@ -252,6 +256,8 @@ class ApiAdminListView( AdminOnlyMixin, BaseListView ):
 class ApiInfoUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
     model = Order
     fields = (
+        'nom',
+        'prenom',
         'adresse',
         'phonenumber',
         'entreprise',
