@@ -25,6 +25,10 @@ from django.core.mail import EmailMessage
 
 # Create your views here.
 
+class ApiView(View):
+    def get(self, request, *args, **kwargs):
+        return JsonResponse(data={}, safe=False, status=200)
+
 class ApiLoginView(View):
 
     def post(self, request, *args, **kwargs):
