@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.2367406e.css",
-    "main.js": "./static/js/main.c57e907a.js",
+    "main.css": "./static/css/main.b5a3e73d.css",
+    "main.js": "./static/js/main.182d7f25.js",
     "static/js/787.1c8a8330.chunk.js": "./static/js/787.1c8a8330.chunk.js",
     "static/media/031_SalaisonsCros-FranckTourneretPhotographe.jpg": "./static/media/031_SalaisonsCros-FranckTourneretPhotographe.2743e6c2a8d9c91f8ff8.jpg",
     "static/media/mignonettes.jpg": "./static/media/mignonettes.062e000230204b5490f8.jpg",
@@ -18,18 +18,20 @@
     "static/media/SALAISONS DE LA BRECHE - Famille Prost.jpg": "./static/media/SALAISONS DE LA BRECHE - Famille Prost.c4697a82f7c60fe2a15d.jpg",
     "static/media/logo-Salaisons-de-la-Brèche- Fond transparent.png": "./static/media/logo-Salaisons-de-la-Brèche- Fond transparent.21a113fd715876ba6adc.png",
     "static/media/logo-Salaisons-de-la-Brèche-Blanc.png": "./static/media/logo-Salaisons-de-la-Brèche-Blanc.05771aafe013784a8511.png",
+    "static/media/output-onlinegiftools.gif": "./static/media/output-onlinegiftools.8bb75b02d9c531ef0d84.gif",
     "static/media/Futuristic Stylish.otf": "./static/media/Futuristic Stylish.004b4046df891b6b85c6.otf",
+    "static/media/Spinner-1s-200px.gif": "./static/media/Spinner-1s-200px.b6082f7388030c4da772.gif",
     "static/media/나뭇잎.png": "./static/media/나뭇잎.6057ecb93a336fcc1f80.png",
     "static/media/모래시계.png": "./static/media/모래시계.bfc7c8cf0324f2ea413b.png",
     "static/media/돋보기.png": "./static/media/돋보기.e83853c9351a86f716d5.png",
     "static/media/logo artisan.png": "./static/media/logo artisan.aed3eaa202041c7cb467.png",
     "index.html": "./index.html",
-    "main.2367406e.css.map": "./static/css/main.2367406e.css.map",
-    "main.c57e907a.js.map": "./static/js/main.c57e907a.js.map",
+    "main.b5a3e73d.css.map": "./static/css/main.b5a3e73d.css.map",
+    "main.182d7f25.js.map": "./static/js/main.182d7f25.js.map",
     "787.1c8a8330.chunk.js.map": "./static/js/787.1c8a8330.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2367406e.css",
-    "static/js/main.c57e907a.js"
+    "static/css/main.b5a3e73d.css",
+    "static/js/main.182d7f25.js"
   ]
 }
