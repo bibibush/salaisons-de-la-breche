@@ -256,7 +256,6 @@ class ApiAdminListView( AdminOnlyMixin, BaseListView ):
         postList = [obj_to_order(obj) for obj in qs]
         return JsonResponse(data=postList, safe=False, status=200)
 
-
 class ApiInfoUpdateView(MyLoginRequiredMixin, OwnerOnlyMixin, BaseUpdateView):
     model = Order
     fields = (

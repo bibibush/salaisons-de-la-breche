@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.a1d00bb1.css",
-    "main.js": "./static/js/main.805722cd.js",
+    "main.css": "./static/css/main.d153b49c.css",
+    "main.js": "./static/js/main.9826765e.js",
     "static/js/787.1c8a8330.chunk.js": "./static/js/787.1c8a8330.chunk.js",
     "static/media/031_SalaisonsCros-FranckTourneretPhotographe.jpg": "./static/media/031_SalaisonsCros-FranckTourneretPhotographe.2743e6c2a8d9c91f8ff8.jpg",
     "static/media/mignonettes.jpg": "./static/media/mignonettes.062e000230204b5490f8.jpg",
@@ -26,12 +26,12 @@
     "static/media/돋보기.png": "./static/media/돋보기.e83853c9351a86f716d5.png",
     "static/media/logo artisan.png": "./static/media/logo artisan.aed3eaa202041c7cb467.png",
     "index.html": "./index.html",
-    "main.a1d00bb1.css.map": "./static/css/main.a1d00bb1.css.map",
-    "main.805722cd.js.map": "./static/js/main.805722cd.js.map",
+    "main.d153b49c.css.map": "./static/css/main.d153b49c.css.map",
+    "main.9826765e.js.map": "./static/js/main.9826765e.js.map",
     "787.1c8a8330.chunk.js.map": "./static/js/787.1c8a8330.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a1d00bb1.css",
-    "static/js/main.805722cd.js"
+    "static/css/main.d153b49c.css",
+    "static/js/main.9826765e.js"
   ]
 }
