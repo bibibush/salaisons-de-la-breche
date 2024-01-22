@@ -10,7 +10,7 @@ class LoginForm(forms.Form):
 class RegisterForm(UserCreationForm):
 
     class Meta:
-        model = Users
+        model = Users #personal User model
         fields = (
             "username",
             "first_name",

@@ -21,8 +21,8 @@ class Contact(models.Model):
     prenom = models.CharField(max_length=30)
     number = models.CharField(max_length=30)
     email = models.EmailField(max_length=100)
-    sujet = models.CharField(max_length=250)
+    sujet = models.CharField(max_length=250, null=True, blank=True)
     question = models.TextField()
 
     def __str__(self):
-        return self.sujet
+        return self.nom

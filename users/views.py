@@ -66,17 +66,29 @@ class ContactView(View):
         if form.is_valid():
             obj = form.save()
             post = obj_to_contact(obj)
-            title = post['sujet']
-            title_client = "Votre demande est bien envoyé"
-            content = (f'nom: {post["nom"]} \nprenom: {post["prenom"]} \nnumero téléphone: {post["number"]} \n'
-                       f'email: {post["email"]} \n\n{post["question"]}'
-                       )
-            content_client = (f"<p>Votre demande est bien envoyé. Nous vous repondons le plus vite possible.</p>"
-                              f"<p>Votre demande est: </p>"
+            title = "Contact via site internet"
+            title_client = "Confirmation d'envoi"
+            content = (f"<p><strong>Nom : </strong>{post['nom']}</p>"
+                       f"<p><strong>Prenom : </strong>{post['prenom']}</p>"
+                       f"<p><strong>Numero de Téléphone : </strong>{post['number']}</p>"
+                       f"<p><strong>Email : </strong>{post['email']}</p>"
+                       f"<p><strong>Objet : </strong>{post['sujet']}</p>"
+                       f"<br />"
+                       f"<strong>La demande : </strong>"
+                       f"<br />"
+                       f"<p>{post['question']}</p>")
+            content_client = (f"<p>Bonjour,</p>"
+                              f"<p>Votre demande ci-dessous a bien été envoyée.</p>"
                               f"<br />"
-                              f"<strong>{post['question']}</strong>")
-            email = EmailMessage(subject=title, body=content, to=['dev.salaisonsdelabreche@gmail.com'])
+                              f"<strong>{post['question']}</strong>"
+                              f"<br />"
+                              f"<br />"
+                              f"<p>Elle sera traitée dans les meilleurs délais.</p>"
+                              f"<p>Cordialement,</p>"
+                              f"<P>SALAISONS DE LA BRÈCHE</P>")
+            email = EmailMessage(subject=title, body=content, to=['contact@salaisonsdelabreche.com', 'salaisons.de.la.breche@orange.fr'])
             email2 = EmailMessage(subject=title_client, body=content_client, to=[post['email']])
+            email.content_subtype="html"
             email2.content_subtype= "html"
             email.send()
             email2.send()
