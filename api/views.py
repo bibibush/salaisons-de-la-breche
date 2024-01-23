@@ -4,7 +4,7 @@ from django.views.generic.edit import BaseCreateView, BaseUpdateView, BaseDelete
 from django.views.generic.detail import BaseDetailView
 from django.views.generic.list import BaseListView
 from django.contrib.auth.views import LogoutView, PasswordChangeView
-from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from django.contrib.auth import login, logout, update_session_auth_hash
 from django.contrib.auth import get_user_model, get_user
@@ -24,7 +24,7 @@ from datetime import date, timedelta
 from django.core.mail import EmailMessage
 
 # Create your views here.
-
+@method_decorator(ensure_csrf_cookie, name='dispatch')
 class ApiView(View):
     def get(self, request, *args, **kwargs):
         return JsonResponse(data={}, safe=False, status=200)
