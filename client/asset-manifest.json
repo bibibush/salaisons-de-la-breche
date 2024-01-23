@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "./static/css/main.e1c300de.css",
-    "main.js": "./static/js/main.c39d55af.js",
+    "main.js": "./static/js/main.e167a950.js",
     "static/js/787.1c8a8330.chunk.js": "./static/js/787.1c8a8330.chunk.js",
     "static/media/031_SalaisonsCros-FranckTourneretPhotographe.jpg": "./static/media/031_SalaisonsCros-FranckTourneretPhotographe.2743e6c2a8d9c91f8ff8.jpg",
     "static/media/mignonettes.jpg": "./static/media/mignonettes.062e000230204b5490f8.jpg",
@@ -27,11 +27,11 @@
     "static/media/logo artisan.png": "./static/media/logo artisan.aed3eaa202041c7cb467.png",
     "index.html": "./index.html",
     "main.e1c300de.css.map": "./static/css/main.e1c300de.css.map",
-    "main.c39d55af.js.map": "./static/js/main.c39d55af.js.map",
+    "main.e167a950.js.map": "./static/js/main.e167a950.js.map",
     "787.1c8a8330.chunk.js.map": "./static/js/787.1c8a8330.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e1c300de.css",
-    "static/js/main.c39d55af.js"
+    "static/js/main.e167a950.js"
   ]
 }
