@@ -66,7 +66,7 @@ class ContactView(View):
         if form.is_valid():
             obj = form.save()
             post = obj_to_contact(obj)
-            title = "Contact via site internet"
+            title = f"Contact via site internet {post['create_dt']}"
             title_client = "Confirmation d'envoi"
             content = (f"<p><strong>Nom : </strong>{post['nom']}</p>"
                        f"<p><strong>Prenom : </strong>{post['prenom']}</p>"
