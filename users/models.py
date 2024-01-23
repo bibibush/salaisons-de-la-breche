@@ -1,3 +1,6 @@
+import datetime
+
+import pytz
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
@@ -21,7 +24,7 @@ class Contact(models.Model):
     prenom = models.CharField(max_length=30)
     number = models.CharField(max_length=30)
     email = models.EmailField(max_length=100)
-    create_dt = models.DateTimeField(auto_now_add=True)
+    create_dt = models.DateTimeField(default=datetime.datetime.now(pytz.timezone('Europe/Paris')))
     sujet = models.CharField(max_length=250, null=True, blank=True)
     question = models.TextField()
 
