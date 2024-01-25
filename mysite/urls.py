@@ -31,8 +31,7 @@ urlpatterns = [
     path('user/', include('users.urls')),
     path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),name="robot.txt"),
     path('sitemap.xml',TemplateView.as_view(template_name="sitemap.xml", content_type="application/xml"), name="sitemap"),
-    # re_path(r'.*', TemplateView.as_view(template_name='index.html'), name='react'),
-    re_path(r'^static/(?P<path>.*)$', serve, {'document_root' : settings.STATIC_ROOT}),
-    re_path(r'.*', TemplateView.as_view(template_name = 'index.html'), name= 'react-web')
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-# + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    re_path(r'.*', TemplateView.as_view(template_name='index.html'), name='react'),
+    # re_path(r'^static/(?P<path>.*)$', serve, {'document_root' : settings.STATIC_ROOT}),
+    # re_path(r'.*', TemplateView.as_view(template_name = 'index.html'), name= 'react-web')
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
