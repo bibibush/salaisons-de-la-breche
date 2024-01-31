@@ -1,5 +1,7 @@
 from typing import Any
 from django.shortcuts import render
+from django.views.decorators.cache import never_cache
+from django.views.decorators.debug import sensitive_post_parameters
 from django.views.generic.edit import BaseCreateView, BaseUpdateView, BaseDeleteView
 from django.views.generic.detail import BaseDetailView
 from django.views.generic.list import BaseListView
@@ -30,7 +32,9 @@ class ApiView(View):
         return JsonResponse(data={}, safe=False, status=200)
 
 class ApiLoginView(View):
-
+    @method_decorator(sensitive_post_parameters())
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
     def post(self, request, *args, **kwargs):
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -50,7 +54,6 @@ class ApiLoginView(View):
 
 
 class ApiLogoutView(LogoutView):
-    @method_decorator(csrf_protect)
     def post(self, request, *args, **kwargs):
         logout(request)
         return JsonResponse(data={}, safe=True, status=200)

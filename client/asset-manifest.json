@@ -1,12 +1,13 @@
 {
   "files": {
-    "main.css": "./static/css/main.7646f7cc.css",
-    "main.js": "./static/js/main.18292889.js",
+    "main.css": "./static/css/main.3e1a30cc.css",
+    "main.js": "./static/js/main.8c70172e.js",
     "static/js/787.1c8a8330.chunk.js": "./static/js/787.1c8a8330.chunk.js",
     "static/media/031_SalaisonsCros-FranckTourneretPhotographe.jpg": "./static/media/031_SalaisonsCros-FranckTourneretPhotographe.2743e6c2a8d9c91f8ff8.jpg",
     "static/media/mignonettes.jpg": "./static/media/mignonettes.062e000230204b5490f8.jpg",
     "static/media/cuire_photp_plus_left.jpg": "./static/media/cuire_photp_plus_left.cc6fa474ddbdc974f4df.jpg",
     "static/media/sechoir_new.jpg": "./static/media/sechoir_new.767eb8184c1805b7e4af.jpg",
+    "static/media/montdulyonnais2.JPG": "./static/media/montdulyonnais2.fba940452ebfa397a225.JPG",
     "static/media/IMG_spe.jpg": "./static/media/IMG_spe.f8f08830d7fb2abf9f04.jpg",
     "static/media/7800 tra.jpg": "./static/media/7800 tra.aa75cf15bd6be8571876.jpg",
     "static/media/IMG_sag.jpg": "./static/media/IMG_sag.cda1274b405e25f8f4bc.jpg",
@@ -26,12 +27,12 @@
     "static/media/돋보기.png": "./static/media/돋보기.e83853c9351a86f716d5.png",
     "static/media/logo artisan.png": "./static/media/logo artisan.aed3eaa202041c7cb467.png",
     "index.html": "./index.html",
-    "main.7646f7cc.css.map": "./static/css/main.7646f7cc.css.map",
-    "main.18292889.js.map": "./static/js/main.18292889.js.map",
+    "main.3e1a30cc.css.map": "./static/css/main.3e1a30cc.css.map",
+    "main.8c70172e.js.map": "./static/js/main.8c70172e.js.map",
     "787.1c8a8330.chunk.js.map": "./static/js/787.1c8a8330.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.7646f7cc.css",
-    "static/js/main.18292889.js"
+    "static/css/main.3e1a30cc.css",
+    "static/js/main.8c70172e.js"
   ]
 }

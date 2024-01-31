@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+from platform import system
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -22,13 +23,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-4^3itg7h0oe9q_r*x2#r=2q#=ua_w*fe&%@kakb3$ktd0q)@bz'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# if system().lower().startswith('darwin') or system().lower().startswith('windows'):
+#     DEBUG = True
+# else:
+#     DEBUG = False
+
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -40,8 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users',
     'api',
+    'users',
 ]
 
 SITE_ID = 1
@@ -120,7 +125,7 @@ STORAGES = {
 }
 # media settings
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 

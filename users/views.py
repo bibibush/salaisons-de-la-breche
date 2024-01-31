@@ -1,7 +1,9 @@
+import datetime
+
+import pytz
 from django.contrib.auth.mixins import LoginRequiredMixin, AccessMixin
 from django.core.mail import EmailMessage
 from django.http import JsonResponse
-from django.utils import timezone
 from django.views.generic.edit import BaseUpdateView
 
 from users.form import ContactForm
@@ -65,6 +67,7 @@ class ContactView(View):
     def post(self, request, *args, **kwargs):
         form = ContactForm(request.POST)
         if form.is_valid():
+            form.instance.create_dt = datetime.datetime.now(pytz.timezone("Europe/Paris"))
             obj = form.save()
             post = obj_to_contact(obj)
             title = f"Contact via site internet {post['create_dt']}"
