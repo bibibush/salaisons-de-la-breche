@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "./static/css/main.3e1a30cc.css",
-    "main.js": "./static/js/main.8c70172e.js",
+    "main.css": "./static/css/main.913c505a.css",
+    "main.js": "./static/js/main.34f7d1ab.js",
     "static/js/787.1c8a8330.chunk.js": "./static/js/787.1c8a8330.chunk.js",
     "static/media/031_SalaisonsCros-FranckTourneretPhotographe.jpg": "./static/media/031_SalaisonsCros-FranckTourneretPhotographe.2743e6c2a8d9c91f8ff8.jpg",
     "static/media/mignonettes.jpg": "./static/media/mignonettes.062e000230204b5490f8.jpg",
@@ -12,8 +12,8 @@
     "static/media/7800 tra.jpg": "./static/media/7800 tra.aa75cf15bd6be8571876.jpg",
     "static/media/IMG_sag.jpg": "./static/media/IMG_sag.cda1274b405e25f8f4bc.jpg",
     "static/media/3400 arti.jpg": "./static/media/3400 arti.3e80b839ef1f114c2471.jpg",
-    "static/media/page_daccueil.jpg": "./static/media/page_daccueil.12d99e6d803dee99c660.jpg",
     "static/media/404notfound.gif": "./static/media/404notfound.cb53582acd1eb0b5e534.gif",
+    "static/media/present.jpg": "./static/media/present.d3d8327da91d7197d36f.jpg",
     "static/media/terrines.png": "./static/media/terrines.bdf968de4506b823e228.png",
     "static/media/Slate.png": "./static/media/Slate.7d259ed4957ccf76af92.png",
     "static/media/SALAISONS DE LA BRECHE - Famille Prost.jpg": "./static/media/SALAISONS DE LA BRECHE - Famille Prost.c4697a82f7c60fe2a15d.jpg",
@@ -27,12 +27,12 @@
     "static/media/돋보기.png": "./static/media/돋보기.e83853c9351a86f716d5.png",
     "static/media/logo artisan.png": "./static/media/logo artisan.aed3eaa202041c7cb467.png",
     "index.html": "./index.html",
-    "main.3e1a30cc.css.map": "./static/css/main.3e1a30cc.css.map",
-    "main.8c70172e.js.map": "./static/js/main.8c70172e.js.map",
+    "main.913c505a.css.map": "./static/css/main.913c505a.css.map",
+    "main.34f7d1ab.js.map": "./static/js/main.34f7d1ab.js.map",
     "787.1c8a8330.chunk.js.map": "./static/js/787.1c8a8330.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3e1a30cc.css",
-    "static/js/main.8c70172e.js"
+    "static/css/main.913c505a.css",
+    "static/js/main.34f7d1ab.js"
   ]
 }

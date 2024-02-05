@@ -26,12 +26,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# if system().lower().startswith('darwin') or system().lower().startswith('windows'):
-#     DEBUG = True
-# else:
-#     DEBUG = False
+if system().lower().startswith('darwin') or system().lower().startswith('windows'):
+    DEBUG = True
+else:
+    DEBUG = False
 
-DEBUG = False
+# DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
