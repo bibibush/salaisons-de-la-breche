@@ -32,9 +32,9 @@ class ApiView(View):
         return JsonResponse(data={}, safe=False, status=200)
 
 class ApiLoginView(View):
-    # @method_decorator(sensitive_post_parameters())
-    # @method_decorator(csrf_protect)
-    # @method_decorator(never_cache)
+    @method_decorator(sensitive_post_parameters())
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
     def post(self, request, *args, **kwargs):
         form = LoginForm(request.POST)
         if form.is_valid():
