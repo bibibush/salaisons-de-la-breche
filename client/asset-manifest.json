@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "./static/css/main.d21136fa.css",
-    "main.js": "./static/js/main.34f7d1ab.js",
-    "static/js/787.1c8a8330.chunk.js": "./static/js/787.1c8a8330.chunk.js",
+    "main.css": "./static/css/main.f3fe8fc3.css",
+    "main.js": "./static/js/main.148fd3ea.js",
+    "static/js/453.ecb3e6b8.chunk.js": "./static/js/453.ecb3e6b8.chunk.js",
     "static/media/031_SalaisonsCros-FranckTourneretPhotographe.jpg": "./static/media/031_SalaisonsCros-FranckTourneretPhotographe.2743e6c2a8d9c91f8ff8.jpg",
     "static/media/mignonettes.jpg": "./static/media/mignonettes.062e000230204b5490f8.jpg",
     "static/media/cuire_photp_plus_left.jpg": "./static/media/cuire_photp_plus_left.cc6fa474ddbdc974f4df.jpg",
@@ -17,22 +17,22 @@
     "static/media/terrines.png": "./static/media/terrines.bdf968de4506b823e228.png",
     "static/media/Slate.png": "./static/media/Slate.7d259ed4957ccf76af92.png",
     "static/media/SALAISONS DE LA BRECHE - Famille Prost.jpg": "./static/media/SALAISONS DE LA BRECHE - Famille Prost.c4697a82f7c60fe2a15d.jpg",
-    "static/media/logo-Salaisons-de-la-Brèche- Fond transparent.png": "./static/media/logo-Salaisons-de-la-Brèche- Fond transparent.21a113fd715876ba6adc.png",
-    "static/media/logo-Salaisons-de-la-Brèche-Blanc.png": "./static/media/logo-Salaisons-de-la-Brèche-Blanc.05771aafe013784a8511.png",
+    "static/media/logo-Salaisons-de-la-Breche- Fond transparent.png": "./static/media/logo-Salaisons-de-la-Breche- Fond transparent.21a113fd715876ba6adc.png",
+    "static/media/logo-Salaisons-de-la-Breche-Blanc.png": "./static/media/logo-Salaisons-de-la-Breche-Blanc.05771aafe013784a8511.png",
     "static/media/output-onlinegiftools.gif": "./static/media/output-onlinegiftools.8bb75b02d9c531ef0d84.gif",
     "static/media/Futuristic Stylish.otf": "./static/media/Futuristic Stylish.004b4046df891b6b85c6.otf",
     "static/media/green spinner.gif": "./static/media/green spinner.8e50ed67940501fbb488.gif",
-    "static/media/나뭇잎.png": "./static/media/나뭇잎.6057ecb93a336fcc1f80.png",
-    "static/media/모래시계.png": "./static/media/모래시계.bfc7c8cf0324f2ea413b.png",
-    "static/media/돋보기.png": "./static/media/돋보기.e83853c9351a86f716d5.png",
+    "static/media/leaf.png": "./static/media/leaf.6057ecb93a336fcc1f80.png",
+    "static/media/sand-clock.png": "./static/media/sand-clock.bfc7c8cf0324f2ea413b.png",
+    "static/media/glass.png": "./static/media/glass.e83853c9351a86f716d5.png",
     "static/media/logo artisan.png": "./static/media/logo artisan.aed3eaa202041c7cb467.png",
     "index.html": "./index.html",
-    "main.d21136fa.css.map": "./static/css/main.d21136fa.css.map",
-    "main.34f7d1ab.js.map": "./static/js/main.34f7d1ab.js.map",
-    "787.1c8a8330.chunk.js.map": "./static/js/787.1c8a8330.chunk.js.map"
+    "main.f3fe8fc3.css.map": "./static/css/main.f3fe8fc3.css.map",
+    "main.148fd3ea.js.map": "./static/js/main.148fd3ea.js.map",
+    "453.ecb3e6b8.chunk.js.map": "./static/js/453.ecb3e6b8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d21136fa.css",
-    "static/js/main.34f7d1ab.js"
+    "static/css/main.f3fe8fc3.css",
+    "static/js/main.148fd3ea.js"
   ]
 }
