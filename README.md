@@ -282,9 +282,6 @@ class ApiFileUploadView(MyLoginRequiredMixin, BaseCreateView):
             form.instance.order_number = random_letters(10)
             while form.instance.order_number == obj.order_number:
                 form.instance.order_number = random_letters(10)
-        self.object = form.save(commit=False)
-        if date.today() >= self.object.date - timedelta(days=14):
-            form.instance.block = True
         bon = form.save()
         post = obj_to_order(bon)
         title = 'Votre commande est bien passé'
