@@ -139,7 +139,6 @@ class ApiBonDownloadView(MyLoginRequiredMixin, View):
             content = f.read()
             response = HttpResponse(content ,content_type = file_type)
             response['Content-Disposition'] = f'attachment; filename= {os.path.basename(file_path)}'
-            response['Content-Length'] = len(content)
             return response
 
 class ApiFileUploadView(MyLoginRequiredMixin, BaseCreateView):
@@ -154,9 +153,6 @@ class ApiFileUploadView(MyLoginRequiredMixin, BaseCreateView):
             form.instance.order_number = random_letters(10)
             while form.instance.order_number == obj.order_number:
                 form.instance.order_number = random_letters(10)
-        self.object = form.save(commit=False)
-        if date.today() >= self.object.date - timedelta(days=14):
-            form.instance.block = True
         bon = form.save()
         post = obj_to_order(bon)
         title = 'Votre commande est bien passé'
@@ -219,22 +215,10 @@ class ApiCommandExcelView(OwnerOnlyMixin, BaseDetailView):
 
 class ApiCommandeListView(MyLoginRequiredMixin, BaseListView):
     def get_queryset(self):
-        if self.request.user.email == 'contact@salaisonsdelabreche.com':
-            qs = Order.objects.all().order_by('-create_dt')
-        else:
-            qs = Order.objects.filter(user__email=self.request.user.email).order_by('-create_dt')
+        qs = Order.objects.filter(user__email=self.request.user.email).order_by('-create_dt')
         return qs
-
     def render_to_response(self, context, **response_kwargs):
         qs = context['object_list']
-        for obj in qs:
-            if date.today() >= obj.date - timedelta(days=14) and not obj.pay:
-                obj.paspaye = True
-            elif date.today() >= obj.date - timedelta(days=14) and obj.pay:
-                obj.validable = True
-                if date.today() >= obj.date and obj.pay:
-                    obj.done = True
-            
         postList = [obj_to_order(obj) for obj in qs]
         return JsonResponse(data=postList, safe=False, status=200)
 
