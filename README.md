@@ -276,10 +276,9 @@ class ApiFileUploadView(MyLoginRequiredMixin, BaseCreateView):
 
     def form_valid(self, form):
         qs = Order.objects.all()
-        
         form.instance.user = self.request.user
+        form.instance.order_number = random_letters(10)
         for obj in qs:
-            form.instance.order_number = random_letters(10)
             while form.instance.order_number == obj.order_number:
                 form.instance.order_number = random_letters(10)
         bon = form.save()

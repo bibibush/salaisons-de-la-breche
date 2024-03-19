@@ -1,4 +1,4 @@
-from random import *
+from random import choice
 import string
 
 def obj_to_order(obj):
