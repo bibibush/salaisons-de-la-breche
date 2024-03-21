@@ -248,6 +248,235 @@ const submit = useCallback(() => {
 <br />
 
 <details>
+<summary><b>달력으로 주문 관리하기</b></summary>
+
+웹사이트의 관리자 계정은 달력으로 주문들을 쉽게 볼 수 있습니다.
+```javascript
+{user.email === "contact@salaisonsdelabreche.com" ? (
+                  <>
+                    <li
+                      onClick={() => {
+                        window.location.href = "/les-commandes/gestion";
+                      }}
+                    >
+                      Gérer les dates
+                    </li>
+                  </>
+                ) : (
+                  <li
+                    onClick={() => {
+                      window.location.href = "/mes-commandes";
+                    }}
+                  >
+                    Mes commandes
+                  </li>
+                )}
+```
+로그인한 이메일 주소가 contact@salaisonsdelabreche.com 이여야만 달력 관리 메뉴를 볼 수 있습니다.
+
+<br />
+
+달력을 위한 특별한 모듈을 사용하지 않고 직접 만들어 보았습니다.
+
+먼저 오늘 날짜 객체와 요일을 정의했습니다.
+```javascript
+const today = {
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    date: new Date().getDate(),
+    day: new Date().getDay(),
+  };
+  const week = useMemo(
+    () => ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
+    []
+  );
+  const week2 = useMemo(
+    () => ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+    []
+  );
+```
+프랑스의 달력은 일요일이 아닌 월요일 부터 시작이기 때문에 week 함수와 week2 함수를 정의했습니다.
+
+년, 달, 일을 선택할 state를 만들었습니다.
+```javascript
+  const [monthSelect, setMonthSelect] = useState(today.month);
+  const [yearSelect, setYearSelect] = useState(today.year);
+  const [daySelect, setDaySelect] = useState(today.date);
+```
+마지막 날이 30일인지 31일인지 알려주는 date객체를 정의했습니다.
+```javascript
+  const dateTotalCount = new Date(yearSelect, monthSelect, 0).getDate();
+```
+
+<br />
+
+작년 이번달 부터 내년 이번달 까지 연도와 월을 선택할 수 있도록 보여주는 콜백함수를 정의했습니다.
+```javascript
+const YearMonthControl = useCallback(() => {
+    let select = [];
+    let startYear = today.year - 1;
+    let endYear = today.year + 1;
+    let startEndMonth = today.month;
+
+    for (let i = 0; i < 25; i++) {
+      select.push(
+        <option
+          key={i}
+          value={new Date(
+            startEndMonth + i > 13
+              ? startEndMonth + i - 12 > 13
+                ? endYear
+                : startYear + 1
+              : startYear,
+            startEndMonth + i - 1 >= 13
+              ? startEndMonth + i - 12 - 1 >= 13
+                ? startEndMonth + i - 24 - 1
+                : startEndMonth + i - 12 - 1
+              : startEndMonth + i - 1,
+            1
+          ).toDateString()}
+        >{`${
+          startEndMonth + i >= 13
+            ? startEndMonth + i - 12 >= 13
+              ? startEndMonth + i - 24
+              : startEndMonth + i - 12
+            : startEndMonth + i
+        } / ${
+          startEndMonth + i >= 13
+            ? startEndMonth + i - 12 >= 13
+              ? endYear
+              : startYear + 1
+            : startYear
+        }`}</option>
+      );
+    }
+    return (
+      <Form.Select
+        defaultValue={new Date(yearSelect, monthSelect - 1, 1).toDateString()}
+        onChange={yearMonthSelect}
+      >
+        {select}
+      </Form.Select>
+    );
+  }, [today.year, today.month, yearMonthSelect, monthSelect, yearSelect]);
+```
+<img src="./media/yearmonthselect.gif" width="80%" />
+
+<br />
+<br />
+
+이제 요일을 보여줄 콜백함수를 정의했습니다.
+```javascript
+const ReturnWeek = useCallback(() => {
+    let weekArr = [];
+    week.forEach((w, i) => {
+      weekArr.push(
+        <div
+          key={i + 1}
+          className={w === "Sam" || w === "Dim" ? "weekday weekend" : "weekday"}
+        >
+          {w}
+        </div>
+      );
+    });
+    return weekArr;
+  }, [week]);
+```
+그리고 달력을 그리는 콜백함수를 정의했습니다.
+```javascript
+const ReturnDays = useCallback(() => {
+    let dayArr = [];
+
+    for (const nowDay of week) {
+      const day = new Date(yearSelect, monthSelect - 1, 1).getDay();
+
+      if (week2[day] === nowDay) {
+        for (let i = 0; i < dateTotalCount; i++) {
+          dayArr.push(
+            <div
+              key={i + 1}
+              className={
+                new Date(yearSelect, monthSelect - 1, i + 1).getDay() === 0 ||
+                new Date(yearSelect, monthSelect - 1, i + 1).getDay() === 6
+                  ? "day weekend_day"
+                  : new Date().toDateString() ===
+                    new Date(yearSelect, monthSelect - 1, i + 1).toDateString()
+                  ? "day selected_day"
+                  : "day"
+              }
+              onClick={dayClick}
+            >
+              {i + 1}
+            </div>
+          );
+        }
+        return dayArr;
+      } else {
+        dayArr.push(<div key={nowDay} className="day day_vide"></div>);
+      }
+    }
+  }, [dateTotalCount, monthSelect, yearSelect, week, week2]);
+```
+
+<br />
+
+백엔드 서버에서 주문들이 달력에 보여질 수 있도록 주문 리스트들을 가져옵니다.
+```python
+class ApiAdminListView( AdminOnlyMixin, BaseListView ):
+    def get_queryset(self):
+        if self.request.user.email == 'contact@salaisonsdelabreche.com':
+            qs = Order.objects.all().order_by('-create_dt')
+        else:
+            qs = []
+        return qs
+
+    def render_to_response(self, context, **response_kwargs):
+        qs = context['object_list']
+        for obj in qs:
+            if date.today() >= obj.date - timedelta(days=14) and not obj.pay:
+                obj.paspaye = True
+            elif date.today() >= obj.date - timedelta(days=14) and obj.pay:
+                obj.validable = True
+                if date.today() >= obj.date and obj.pay:
+                    obj.done = True
+            
+        postList = [obj_to_order(obj) for obj in qs]
+        return JsonResponse(data=postList, safe=False, status=200)
+```
+그리고 프론트엔드에서 데이터들을 받아 선택한 연도, 월에 주문이 있으면 그 날짜에 oday라는 클래스를 넣어 주문이 있다는 것을 보여줍니다.
+```javascript
+const getApi = useCallback(async () => {
+    try {
+      const res = await axios.get("/api/ad/list/");
+      console.log(res.data);
+      const days = document.querySelectorAll(".day");
+      days.forEach((day) => {
+        const oday = res.data.find(
+          (order) =>
+            new Date(order.date).toDateString() ===
+            new Date(
+              yearSelect,
+              monthSelect - 1,
+              Number(day.innerText)
+            ).toDateString()
+        );
+        if (oday !== undefined) {
+          day.classList.add("oday");
+        }
+      });
+      setOrders(res.data);
+    } catch (err) {
+      console.log(err.response);
+      window.location.href = "/";
+    }
+  }, [monthSelect, yearSelect]);
+```
+<img src="./media/oday.gif" width="80%" />
+</details>
+
+<br />
+
+<details>
 <summary><b>첨부파일(주문서 양식) 다운로드</b></summary>
 
 api앱 models.py에 File 모델을 작성했습니다.
@@ -479,8 +708,25 @@ date 형식은 프랑스 로컬 형식으로 맞췄습니다.
 
 <br />
 
-<details>
-<summary><b>달력으로 주문 관리하기</b></summary>
+## 에러 해결 경험
 
-웹사이트의 관리자 계정은 달력으로 주문들을 쉽게 볼 수 있습니다.
-</details>
+문의하기 기능을 다 만든 뒤 테스트를 해보니 모든 정보를 제대로 입력했는데도 불구하고 에러 메세지가 떴습니다.
+console.log(error.response)를 해보니 403 forbidden 에러라고 적혀 있었습니다.
+
+저는 배포한 서버의 문제인줄 알고 배포 서버 관련해서 구글링도 해보고 고객센터에 연락도 해보았지만 문제를 해결할 수 없었습니다.
+
+혹시 배포서버의 문제가 아닌 Django의 문제가 아닐까 하여 Django 403 forbidden error 라고 구글링을 해보니,   
+많은 경우 csrf 토큰이 제대로 전달되지 않아 발생하는 문제라고 많은 게시물에 적혀있었습니다.  
+
+해결방법은 굉장히 간단했습니다. 서버에서 웹사이트로 csrf토큰을 전달만 잘 해주면 되는 것이었습니다.
+
+웹사이트를 시작할 때 서버에서 웹페이지로 csrf토큰을 전달시켜줄 View를 만들었습니다.
+```python
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class ApiView(View):
+    def get(self, request, *args, **kwargs):
+        return JsonResponse(data={}, safe=False, status=200)
+```
+혹 csrf쿠키가 삭제되더라도 웹사이트에 접속 또는 새로고침이 되면 자동으로 csrf 쿠키가 생성되도록 했습니다.
+이 후에 에러 없이 잘 동작하는 것을 확인했습니다.  
+
