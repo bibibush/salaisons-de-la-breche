@@ -1,13 +1,13 @@
 # Salaisons de la Brèche
 ## 소개
 >Salaisons de la Brèche라는 회사는 돼지고기를 가공해 만든 식품인 Saucisson( 쏘시쏭 )을 제조하는 회사입니다.  
->회사가 추구하는 웹사이트의 목적은 고품질 재료와 전통적인 방법을 사용한 제품생산이라는 사실을 강조하는것 입니다.  
->또한 제품관련 문의를 많이 받기 때문에 프론트엔드에서 회사 연락처와 문의하기 페이지를 웹사이트에 잘 나타나도록 했습니다.
+>회사가 추구하는 웹사이트의 목적은 고품질 재료와 전통적인 방법을 사용한 제품생산이라는 사실을 강조하는 것입니다.  
+>또한 제품 관련 문의를 많이 받기 때문에 프론트엔드에서 회사 연락처와 문의하기 페이지를 웹사이트에 잘 나타나도록 했습니다.
 >특히 주 고객들의 연령층이 50 ~ 80 정도의 연세가 있으신 분들이기 때문에 제품소개 페이지로 잘 도달할 수 있도록 페이지 클릭 강조 효과를 추가했습니다.
 >
 >백엔드 서버에서는 문의하기, login, 첨부파일 다운로드와 전송, 
->주문정보 보내기 등의 기능들을 구현했습니다.  
->모든 기능들이 잘 동작하지만 지금 서비스 되고 있는 기능은 문의하기 기능 하나입니다.
+>주문 정보 보내기 등의 기능들을 구현했습니다.  
+>모든 기능이 잘 동작하지만 지금 서비스되는 기능은 문의하기 기능 하나입니다.
 
 <br />
 
@@ -75,12 +75,12 @@ css 파일들은 styles 폴더 안에 넣었습니다.
         - settings.py
         - urls.py
 ```
-api와 users 두개의 앱을 생성해 로그인, 주문 관련 기능들은 api앱 안에 작성했고  
+api와 users 두 개의 앱을 생성해 로그인, 주문 관련 기능들은 api앱 안에 작성했고  
 사용자 관련한 기능들은 users 앱 안에서 코드를 작성했습니다.
 
-client 폴더는 일반적인 Django의 Templates 폴더를 대체하는 폴더입니다.
+client 폴더는 일반적인 Django 의 Templates 폴더를 대체하는 폴더입니다.
 
-media 폴더는 고객들이 주문하기 위해 필요한 주문양식서들이 있고  
+media 폴더는 고객들이 주문하기 위해 필요한 주문 양식서들이 있고  
 고객들이 주문서를 제출할 때 주문서들이 upload 폴더 안으로 갈 수 있도록 api앱 models.py에서 설정했습니다.
 ```python
 class Order(models.Model):
@@ -90,7 +90,7 @@ class Order(models.Model):
 ```
 <br />
 
-settings.py에는 스태틱 파일과 미디어 파일에 대한 설정을 했고   
+settings.py에는 스태틱 파일과 미디어 파일에 대해 설정했고   
 Django의 EmailMessage를 사용하기 위해 gmail에 맞는 필요 코드를 작성했습니다.
 ```python
 STATIC_ROOT ='/home/salaisonsdel/public_html/static'
@@ -121,6 +121,9 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 ## 핵심 기능들
 >- 이 프로젝트에 있는 모든 기능을 보여드리는 것이 아닌
 >웹사이트에서 중요한 몇 가지 기능을 밑에 서술했습니다.
+
+>- 지금 서비스되는 기능은 문의하기 기능 하나입니다.  
+>다른 구현한 기능들은 잘 동작하지만, 아직 서비스 상태 전입니다.
 
 <details>
 <summary><b>문의하기</b></summary>
@@ -187,12 +190,12 @@ class ContactView(View):
         else:
             return JsonResponse(data=form.errors, safe=True, status=400)
 ```
-ContactView에서 메일 생성시간을 제목 옆에 나타냄으로서 회사 이메일 보관함에 메일이 겹쳐서 보이지 않도록 처리했습니다.  
-고객이 회사로 보내는 문의메일은 email, 자동으로 회사에서 고객한테 보내는 답장메일은 email2로 담아서 send 메소드로 기능을 구현했습니다.
+ContactView에서 메일 생성시간을 제목 옆에 나타냄으로써 회사 이메일 보관함에 메일이 겹쳐서 보이지 않도록 처리했습니다.  
+고객이 회사로 보내는 문의 메일은 email, 자동으로 회사에서 고객한테 보내는 답장 메일은 email2로 담아서 send 메소드로 기능을 구현했습니다.
 
 <br />
 
-데이터들을 프론트엔드 서버에 전달하기 위해 딕셔너리 객체로 변환해줄 obj_to_contact 함수를 만들어 사용했습니다.
+데이터들을 프론트엔드 서버에 전달하기 위해 딕셔너리 객체로 변환해 줄 obj_to_contact 함수를 만들어 사용했습니다.
 ```python
 def obj_to_contact(obj):
     post = dict(vars(obj))
@@ -232,7 +235,7 @@ const submit = useCallback(() => {
   }, []);
 ```
 전송 버튼을 누르면 submit 함수가 실행 되도록 하였습니다.  
-전송이 성공적으로 실행되면 전송이 잘 되었다는 문구가 적힌 페이지로 이동이 되고 실패하면 alert 메세지를 띄웁니다.
+전송이 성공적으로 실행되면 전송이 잘 되었다는 문구가 적힌 페이지로 이동이 되고 실패하면 alert 메시지를 띄웁니다.
 ```javascript
 {btnState ? (
         <button style={{ padding: "5px 0" }} disabled>
@@ -242,7 +245,7 @@ const submit = useCallback(() => {
         <button onClick={submit}>Envoyer</button>
       )}
 ```
-전송버튼을 누르고 서버가 응답할 때까지 걸리는 시간 중에 버튼을 또 누르지 않도록 disabled 처리와 스피너가 보여지도록 했습니다.
+전송 버튼을 누르고 서버가 응답할 때까지 걸리는 시간 중에 버튼을 또 누르지 않도록 disabled 처리와 스피너가 보이도록 했습니다.
 </details>
 
 <br />
@@ -250,7 +253,7 @@ const submit = useCallback(() => {
 <details>
 <summary><b>달력으로 주문 관리하기</b></summary>
 
-웹사이트의 관리자 계정은 달력으로 주문들을 쉽게 볼 수 있습니다.
+웹사이트의 관리자 계정은 달력으로 주문을 쉽게 볼 수 있습니다.
 ```javascript
 {user.email === "contact@salaisonsdelabreche.com" ? (
                   <>
@@ -295,7 +298,7 @@ const today = {
     []
   );
 ```
-프랑스의 달력은 일요일이 아닌 월요일 부터 시작이기 때문에 week 함수와 week2 함수를 정의했습니다.
+프랑스의 달력은 일요일이 아닌 월요일부터 시작이기 때문에 week 함수와 week2 함수를 정의했습니다.
 
 년, 달, 일을 선택할 state를 만들었습니다.
 ```javascript
@@ -303,14 +306,14 @@ const today = {
   const [yearSelect, setYearSelect] = useState(today.year);
   const [daySelect, setDaySelect] = useState(today.date);
 ```
-마지막 날이 30일인지 31일인지 알려주는 date객체를 정의했습니다.
+마지막 날이 30일인지 31일인지 알려주는 date 객체를 정의했습니다.
 ```javascript
   const dateTotalCount = new Date(yearSelect, monthSelect, 0).getDate();
 ```
 
 <br />
 
-작년 이번달 부터 내년 이번달 까지 연도와 월을 선택할 수 있도록 보여주는 콜백함수를 정의했습니다.
+작년 이번 달부터 내년 이번 달까지 연도와 월을 선택할 수 있도록 보여주는 콜백함수를 정의했습니다.
 ```javascript
 const YearMonthControl = useCallback(() => {
     let select = [];
@@ -420,7 +423,7 @@ const ReturnDays = useCallback(() => {
 
 <br />
 
-백엔드 서버에서 주문들이 달력에 보여질 수 있도록 주문 리스트들을 가져옵니다.
+백엔드 서버에서 주문들이 달력에 보일 수 있도록 주문 리스트들을 가져옵니다.
 ```python
 class ApiAdminListView( AdminOnlyMixin, BaseListView ):
     def get_queryset(self):
@@ -503,7 +506,7 @@ class ApiBonDownloadView(MyLoginRequiredMixin, View):
             return response
 ```
 이 코드에서 다루고 있는 파일은 pdf 파일임으로 file_type으로 pdf에 맞게 작성했습니다.  
-이 다운로드view는 로그인을 한 상태여야만 다운로드 기능이 동작하게끔 LoginRequiredMixin을 상속받은 MyLoginRequiredMixin을 상속시켜 사용했습니다.
+이 다운로드view는 로그인한 상태여야만 다운로드 기능이 동작하게끔 LoginRequiredMixin을 상속받은 MyLoginRequiredMixin을 상속시켜 사용했습니다.
 ```python
 # users/views.py
 
@@ -567,7 +570,7 @@ const download = () => {
 <details>
 <summary><b>주문정보 입력 및 주문서 업로드</b></summary>
 
-주문 관련한 Order model을 api앱안에 작성
+주문 관련한 Order model을 api앱 안에 작성
 ```python
 class Order(models.Model):
     nom = models.CharField('nom',max_length=50)
@@ -595,7 +598,7 @@ order_file 오브젝트를 작성해, 고객이 주문서를 업로드하면 upl
 
 <br />
 
-파일업로드 View 입니다.  
+파일 업로드 View입니다.  
 MyLoginRequiredMixin과 BaseCreateView를 상속받아 작성했습니다.
 ```python
 class ApiFileUploadView(MyLoginRequiredMixin, BaseCreateView):
@@ -621,7 +624,7 @@ class ApiFileUploadView(MyLoginRequiredMixin, BaseCreateView):
     def form_invalid(self, form):
         return JsonResponse(data=form.errors, safe=True, status=400)
 ```
-고객이 주문을 완료하면 자동으로 10개의 무작위 숫자를 발급해주는 random_letters 함수를 정의하고 사용하였습니다.
+고객이 주문을 완료하면 자동으로 10개의 무작위 숫자를 발급해 주는 random_letters 함수를 정의하고 사용하였습니다.
 ```python
 def random_letters(digit):
      string_pool = string.digits
@@ -710,17 +713,17 @@ date 형식은 프랑스 로컬 형식으로 맞췄습니다.
 
 ## 에러 해결 경험
 
-문의하기 기능을 다 만든 뒤 테스트를 해보니 모든 정보를 제대로 입력했는데도 불구하고 에러 메세지가 떴습니다.
+문의하기 기능을 다 만든 뒤 테스트를 해보니 모든 정보를 제대로 입력했는데도 불구하고 에러 메시지가 떴습니다.
 console.log(error.response)를 해보니 403 forbidden 에러라고 적혀 있었습니다.
 
-저는 배포한 서버의 문제인줄 알고 배포 서버 관련해서 구글링도 해보고 고객센터에 연락도 해보았지만 문제를 해결할 수 없었습니다.
+저는 배포한 서버의 문제인 줄 알고 배포 서버 관련해서 구글링도 해보고 고객센터에 연락도 해보았지만 문제를 해결할 수 없었습니다.
 
-혹시 배포서버의 문제가 아닌 Django의 문제가 아닐까 하여 Django 403 forbidden error 라고 구글링을 해보니,   
+혹시 배포 서버의 문제가 아닌 Django 의 문제가 아닐까 하여 Django 403 forbidden error라고 구글링을 해보니,   
 많은 경우 csrf 토큰이 제대로 전달되지 않아 발생하는 문제라고 많은 게시물에 적혀있었습니다.  
 
-해결방법은 굉장히 간단했습니다. 서버에서 웹사이트로 csrf토큰을 전달만 잘 해주면 되는 것이었습니다.
+해결 방법은 굉장히 간단했습니다. 서버에서 웹사이트로 csrf토큰을 전달만 잘 해주면 되는 것이었습니다.
 
-웹사이트를 시작할 때 서버에서 웹페이지로 csrf토큰을 전달시켜줄 View를 만들었습니다.
+웹사이트를 시작할 때 서버에서 웹페이지로 csrf토큰을 전달시켜 줄 View를 만들었습니다.
 ```python
 @method_decorator(ensure_csrf_cookie, name='dispatch')
 class ApiView(View):
@@ -728,5 +731,5 @@ class ApiView(View):
         return JsonResponse(data={}, safe=False, status=200)
 ```
 혹 csrf쿠키가 삭제되더라도 웹사이트에 접속 또는 새로고침이 되면 자동으로 csrf 쿠키가 생성되도록 했습니다.
-이 후에 에러 없이 잘 동작하는 것을 확인했습니다.  
+이후에 에러 없이 잘 동작하는 것을 확인했습니다.  
 
